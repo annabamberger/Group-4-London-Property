@@ -1,0 +1,9 @@
+.pricepane{
+    -fx-padding: 12px;
+    -fx-spacing: 10px;
+}
+
+#bottompane{
+    -fx-padding: 12px;
+}
+
