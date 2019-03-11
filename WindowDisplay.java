@@ -13,17 +13,18 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * 
  *
- * @author (Li Peiyao)
+ * @author (Li Peiyao), Anna Bamberger
  * @version (a version number or a date)
  */
 public class WindowDisplay extends Application
 {
     private int fromPrice = 0;
     private int toPrice = 0;
+    private Stage stage;
     
 
     @Override
-    public void start(Stage stage) throws Exception
+    public void start(Stage stage) 
     {
         ChoiceBox fromBox = new ChoiceBox();
         fromBox.getItems().addAll(10, 30, 50, 80, 100, 150, 200);
@@ -81,11 +82,17 @@ public class WindowDisplay extends Application
         else if(fromPrice > toPrice){
             priceErrorAlert();
         }
-        else{
+        else{ proceed();
             
         }
     }
-    
+    private void proceed()
+    { 
+       Statistics stats = new Statistics();
+       Stage newStage = new Stage();
+        stats.start(newStage);
+        newStage.show();
+    }
     private void priceErrorAlert()
     {
         Alert alert = new Alert(AlertType.ERROR);
