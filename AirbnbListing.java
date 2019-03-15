@@ -1,4 +1,3 @@
- 
 
 /**
  * Represents one listing of a property for rental on Airbnb.
@@ -40,12 +39,12 @@ public class AirbnbListing {
     /**
      * The price per night's stay
      */
-    private int price;
+    private static int price;
 
     /**
      * The minimum number of nights the listed property must be booked for.
      */
-    private int minimumNights;
+    private static int minimumNights;
     private int numberOfReviews;
 
     /**
@@ -62,12 +61,19 @@ public class AirbnbListing {
      * The total number of days in the year that the property is available for
      */
     private int availability365;
-
+    private int numberEntireHomes;
+    private int size;
+    private int overseas;
+    private boolean isFavourite;
+    private int numberFavourites;
+    private boolean outdoor;
+    private int numberOutdoor;
     public AirbnbListing(String id, String name, String host_id,
                          String host_name, String neighbourhood, double latitude,
                          double longitude, String room_type, int price,
                          int minimumNights, int numberOfReviews, String lastReview,
-                         double reviewsPerMonth, int calculatedHostListingsCount, int availability365) {
+                         double reviewsPerMonth, int calculatedHostListingsCount, int availability365
+                         ) {
         this.id = id;
         this.name = name;
         this.host_id = host_id;
@@ -83,6 +89,14 @@ public class AirbnbListing {
         this.reviewsPerMonth = reviewsPerMonth;
         this.calculatedHostListingsCount = calculatedHostListingsCount;
         this.availability365 = availability365;
+        setSize(size);
+    }
+    public boolean entireHomes()
+    {return false;}
+    
+    public int numberEntireHomes()
+    { if(entireHomes()) {numberEntireHomes++;}
+    return numberEntireHomes;
     }
 
     public String getId() {
@@ -116,19 +130,42 @@ public class AirbnbListing {
     public String getRoom_type() {
         return room_type;
     }
-
-    public int getPrice() {
+    public void setSize(int size)
+    {size=0;}
+    
+    public int getSize()
+    { 
+        return size;
+    }
+    public boolean overseas()
+    {return false;}
+    
+    public int numberOverseas()
+    {if(overseas()) {overseas++;}
+    return overseas;
+    }
+    public static int getPrice() {
         return price;
     }
-
-    public int getMinimumNights() {
+    
+    public static int getMinimumNights() {
         return minimumNights;
     }
-
-    public int getNumberOfReviews() {
+    public static int minimumCost()
+    {int minimumCost = getPrice()*getMinimumNights();
+        return minimumCost;
+    }
+   public int numberOfReviews()
+    {
         return numberOfReviews;
     }
-
+   public void toggleFavourite()
+   {  isFavourite=!isFavourite;
+    }
+    public int numberFavourites()
+    { if(isFavourite) {numberFavourites++;}
+    return numberFavourites;
+    }
     public String getLastReview() {
         return lastReview;
     }
@@ -136,7 +173,13 @@ public class AirbnbListing {
     public double getReviewsPerMonth() {
         return reviewsPerMonth;
     }
-
+    public void outdoorSpace()
+    { outdoor =!outdoor;
+    }
+    public int numberOutdoor()
+    {if(outdoor) {numberOutdoor++;}
+    return numberOutdoor;
+    }
     public int getCalculatedHostListingsCount() {
         return calculatedHostListingsCount;
     }
@@ -165,4 +208,6 @@ public class AirbnbListing {
                 ", availability365=" + availability365 +
                 '}';
     }
+
+    
 }

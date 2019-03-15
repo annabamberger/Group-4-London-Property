@@ -28,16 +28,29 @@ public class Statistics extends Application
     private BorderPane aptPane;
     private Stage stage;
     private Scene scene2, scene3, scene4, scene5, scene6, scene7, scene8;
-    private int row;
-    private int col;
-    private ArrayList<Node> storedNodes;
-    private final int columnCount = 2;
-    private final int rowCount = 2;
-    
-
+    private String id;
+    private String name;
+    private String host_id;
+    private String host_name;
+    private String neighbourhood;
+    private double latitude;
+    private double longitude;
+    private String room_type;
+    private int price;
+    private int minimumNights;
+    private int numberOfReviews; 
+    private String lastReview;
+    private double reviewsPerMonth;
+    private int calculatedHostListingsCount;
+    private int availability365;
     @Override
     public void start(Stage stage)
-    { 
+    {   AirbnbDataLoader dataLoader = new AirbnbDataLoader();
+        AirbnbListing listing = new AirbnbListing(id,name,host_id,host_name,
+        neighbourhood, latitude, longitude, room_type, price, minimumNights,
+        numberOfReviews, lastReview, reviewsPerMonth, calculatedHostListingsCount,
+        availability365);
+        
         VBox statsBox = new VBox();
         statsBox.setSpacing(15);
         statsBox.setPadding(new Insets(10,10,10,10));
@@ -56,7 +69,8 @@ public class Statistics extends Application
         back.setOnAction(e->stage.setScene(scene8));
         statsBox2.getChildren().add(back);
         
-        Label statName = new Label("Number of Properties\n"+"         200");
+        Label statName = new Label("Number of Properties\n"+ 
+        dataLoader.numberListings());
         
         
         // Create a new grid pane
@@ -83,7 +97,7 @@ public class Statistics extends Application
         reviewsBox2.getChildren().add(back1);
         
         Label reviews = new Label("Average number of reviews \n"+
-        "per property  -  5");
+        "per property  -  "+ dataLoader.numberOfReviews());
         
         BorderPane reviewPane = new BorderPane(reviews, null, reviewsBox, null, reviewsBox2);
         reviewPane.setPadding(new Insets(10, 10, 10, 10));
@@ -108,9 +122,9 @@ public class Statistics extends Application
         expBox2.getChildren().add(back2);
         
         Label expName = new Label
-        ("Most expensive borough according to \n" + 
+        ("Most expensive listing according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - Mayfair");
+        "of minimum nights - " + dataLoader.mostExpensive());
         
         // Create a new grid pane
         BorderPane expPane = new BorderPane(expName,null, expBox, null,expBox2);
@@ -136,7 +150,7 @@ public class Statistics extends Application
         aptBox2.getChildren().add(previous);
         
         Label aptName = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - 80"); 
+        "vs single rooms  - " + dataLoader.entireHomes()); 
         
         // Create a new grid pane
         BorderPane aptPane = new BorderPane(aptName,null, aptBox, null, aptBox2);
@@ -177,7 +191,7 @@ public class Statistics extends Application
         reviewsBox2Sc.getChildren().add(back1Sc);
         
         Label reviews1 = new Label("Average number of reviews \n"+
-        "per property  -  5");
+        "per property  -  " + dataLoader.numberOfReviews());
         
         BorderPane reviewPane1 = new BorderPane(reviews1, null, reviewsBoxSc2, null, reviewsBox2Sc);
         reviewPane1.setPadding(new Insets(10, 10, 10, 10));
@@ -204,7 +218,7 @@ public class Statistics extends Application
         Label expName1 = new Label
         ("Most expensive borough according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - Mayfair");
+        "of minimum nights - " + dataLoader.mostExpensive());
         
         // Create a new grid pane
         BorderPane expPane1 = new BorderPane(expName1,null, exp2, null,expBox21);
@@ -230,7 +244,7 @@ public class Statistics extends Application
         aptBox21.getChildren().add(previous1);
         
         Label aptName1 = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - 80"); 
+        "vs single rooms  - " + dataLoader.entireHomes()); 
         
         // Create a new grid pane
         BorderPane aptPane1 = new BorderPane(aptName1,null, aptBox1, null, aptBox21);
@@ -256,7 +270,7 @@ public class Statistics extends Application
         largeBox2.getChildren().add(large2);
         
         Label largeName = new Label("Largest property on the\n"  +
-        "market - Rosewood"); 
+        "market - " + dataLoader.getLargestSize()); 
         
         // Create a new pane
         BorderPane largePane = new BorderPane(largeName,null, largeBox, null, largeBox2);
@@ -298,7 +312,7 @@ public class Statistics extends Application
         Label expName3 = new Label
         ("Most expensive borough according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - Mayfair");
+        "of minimum nights - " + dataLoader.mostExpensive());
         
         // Create a new grid pane
         BorderPane expPane3 = new BorderPane(expName3,null, expBox3, null,expBox31);
@@ -324,7 +338,7 @@ public class Statistics extends Application
         aptBox31.getChildren().add(previous3);
         
         Label aptName3 = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - 80"); 
+        "vs single rooms  - " + dataLoader.entireHomes()); 
         
         // Create a new grid pane
         BorderPane aptPane3 = new BorderPane(aptName3,null, aptBox3, null, aptBox31);
@@ -350,7 +364,7 @@ public class Statistics extends Application
         largeBox31.getChildren().add(large31);
         
         Label largeName3 = new Label("Largest property on the\n"  +
-        "market - Rosewood"); 
+        "market - " + dataLoader.getLargestSize()); 
         
         // Create a new pane
         BorderPane largePane3 = new BorderPane(largeName3,null, largeBox3, null, largeBox31);
@@ -376,7 +390,7 @@ public class Statistics extends Application
         overseaBox2.getChildren().add(previousO);
         
         Label overseaName = new Label("Number of bookings from overseas\n" +
-        "90"); 
+        dataLoader.overseas()); 
         
         // Create a new pane
         BorderPane overseaPane = new BorderPane(overseaName,null, overseaBox, null, overseaBox2);
@@ -417,7 +431,7 @@ public class Statistics extends Application
         aptBox4.getChildren().add(previous4);
         
         Label aptName4 = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - 80"); 
+        "vs single rooms  - " + dataLoader.entireHomes()); 
         
         // Create a new grid pane
         BorderPane aptPane4 = new BorderPane(aptName4,null, apt4, null, aptBox4);
@@ -443,7 +457,7 @@ public class Statistics extends Application
         largeBox41.getChildren().add(large41);
         
         Label largeName4 = new Label("Largest property on the\n"  +
-        "market - Rosewood"); 
+        "market - " + dataLoader.getLargestSize()); 
         
         // Create a new pane
         BorderPane largePane4 = new BorderPane(largeName4,null, largeBox4, null, largeBox41);
@@ -469,7 +483,7 @@ public class Statistics extends Application
         overseaBox24.getChildren().add(previousO4);
         
         Label overseaName4 = new Label("Number of bookings from overseas\n" +
-        "90"); 
+        dataLoader.overseas()); 
         
         // Create a new pane
         BorderPane overseaPane4 = new BorderPane(overseaName4,null, overseaBox4, null, overseaBox24);
@@ -496,7 +510,7 @@ public class Statistics extends Application
         favBox2.getChildren().add(previousF);
         
         Label favName = new Label("Users' favorite property\n" +
-        "Arlington"); 
+        dataLoader.favProperty()); 
         
         // Create a new pane
         BorderPane favPane = new BorderPane(favName,null, favBox, null, favBox2);
@@ -537,7 +551,7 @@ public class Statistics extends Application
         largeBox51.getChildren().add(large51);
         
         Label largeName5 = new Label("Largest property on the\n"  +
-        "market - Rosewood"); 
+        "market - "+ dataLoader.getLargestSize()); 
         
         // Create a new pane
         BorderPane largePane5 = new BorderPane(largeName5,null, largeBox5, null, largeBox51);
@@ -563,7 +577,7 @@ public class Statistics extends Application
         overseaBox54.getChildren().add(previousO5);
         
         Label overseaName5 = new Label("Number of bookings from overseas\n" +
-        "90"); 
+        dataLoader.overseas()); 
         
         // Create a new pane
         BorderPane overseaPane5 = new BorderPane(overseaName5,null, overseaBox5, null, overseaBox54);
@@ -590,7 +604,7 @@ public class Statistics extends Application
         favBox51.getChildren().add(previousF5);
         
         Label favName5 = new Label("Users' favorite property\n" +
-        "Arlington"); 
+        dataLoader.favProperty()); 
         
         // Create a new pane
         BorderPane favPane5 = new BorderPane(favName5,null, favBox5, null, favBox51);
@@ -617,7 +631,7 @@ public class Statistics extends Application
         OutBox2.getChildren().add(previousOut);
         
         Label OutName = new Label("Number of properties with\n" +
-        "outdoor space  - 20"); 
+        "outdoor space  -"+ dataLoader.outdoorSpace()); 
         
         // Create a new pane
         BorderPane outPane = new BorderPane(OutName,null, outBox, null, OutBox2);
@@ -657,7 +671,7 @@ public class Statistics extends Application
         overseaBox64.getChildren().add(previousO6);
         
         Label overseaName6 = new Label("Number of bookings from overseas\n" +
-        "90"); 
+        dataLoader.overseas()); 
         
         // Create a new pane
         BorderPane overseaPane6 = new BorderPane(overseaName6,null, overseaBox6, null, overseaBox64);
@@ -684,7 +698,7 @@ public class Statistics extends Application
         favBox61.getChildren().add(previousF6);
         
         Label favName6 = new Label("Users' favorite property\n" +
-        "Arlington"); 
+        dataLoader.favProperty()); 
         
         // Create a new pane
         BorderPane favPane6 = new BorderPane(favName6,null, favBox6, null, favBox61);
@@ -711,7 +725,7 @@ public class Statistics extends Application
         OutBox6.getChildren().add(previousOut6);
         
         Label OutName6 = new Label("Number of properties with\n" +
-        "outdoor space  - 20"); 
+        "outdoor space  - "+dataLoader.outdoorSpace()); 
         
         // Create a new pane
         BorderPane outPane6 = new BorderPane(OutName6,null, outBox6, null, OutBox6);
@@ -736,7 +750,7 @@ public class Statistics extends Application
         back6.setOnAction(e->stage.setScene(scene5));
         statsBox26.getChildren().add(back6);
         
-        Label statName6 = new Label("Number of Properties\n"+"         200");
+        Label statName6 = new Label("Number of Properties\n"+   dataLoader.numberListings());
         
         
         // Create a new grid pane
@@ -778,7 +792,7 @@ public class Statistics extends Application
         favBox27.getChildren().add(previousF7);
         
         Label favName7 = new Label("Users' favorite property\n" +
-        "Arlington"); 
+       dataLoader.favProperty()); 
         
         // Create a new pane
         BorderPane favPane7 = new BorderPane(favName7,null, favBox7, null, favBox27);
@@ -806,7 +820,7 @@ public class Statistics extends Application
         OutBox27.getChildren().add(previousOut7);
         
         Label OutName7 = new Label("Number of properties with\n" +
-        "outdoor space  - 20"); 
+        "outdoor space  - "+ dataLoader.outdoorSpace()); 
         
         // Create a new pane
         BorderPane outPane7 = new BorderPane(OutName7,null, outBox7, null, OutBox27);
@@ -832,7 +846,7 @@ public class Statistics extends Application
         back71.setOnAction(e->stage.setScene(scene6));
         statsBox27.getChildren().add(back71);
         
-        Label statName7 = new Label("Number of Properties\n"+"         200");
+        Label statName7 = new Label("Number of Properties\n"+dataLoader.numberListings());
         
         
         // Create a new grid pane
@@ -859,7 +873,7 @@ public class Statistics extends Application
         reviewsBox27.getChildren().add(back17);
         
         Label reviews7 = new Label("Average number of reviews \n"+
-        "per property  -  5");
+        dataLoader.numberOfReviews());
         
         BorderPane reviewPane7 = new BorderPane(reviews7, null, reviewsBox7, null, reviewsBox27);
         reviewPane7.setPadding(new Insets(10, 10, 10, 10));
@@ -899,7 +913,7 @@ public class Statistics extends Application
         OutBox28.getChildren().add(previousOut8);
         
         Label OutName8 = new Label("Number of properties with\n" +
-        "outdoor space  - 20"); 
+        "outdoor space  - "+dataLoader.outdoorSpace()); 
         
         // Create a new pane
         BorderPane outPane8 = new BorderPane(OutName8,null, outBox8, null, OutBox28);
@@ -925,7 +939,7 @@ public class Statistics extends Application
         back81.setOnAction(e->stage.setScene(scene7));
         statsBox28.getChildren().add(back81);
         
-        Label statName8 = new Label("Number of Properties\n"+"         200");
+        Label statName8 = new Label("Number of Properties\n"+dataLoader.numberListings());
         
         
         // Create a new grid pane
@@ -952,7 +966,7 @@ public class Statistics extends Application
         reviewsBox28.getChildren().add(back18);
         
         Label reviews8 = new Label("Average number of reviews \n"+
-        "per property  -  5");
+        "per property  -  "+ dataLoader.numberOfReviews());
         
         BorderPane reviewPane8 = new BorderPane(reviews8, null, reviewsBox8, null, reviewsBox28);
         reviewPane8.setPadding(new Insets(10, 10, 10, 10));
@@ -979,7 +993,7 @@ public class Statistics extends Application
         Label expName8 = new Label
         ("Most expensive borough according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - Mayfair");
+        "of minimum nights - "+dataLoader.mostExpensive());
         
         // Create a new grid pane
         BorderPane expPane8 = new BorderPane(expName8,null, expBox8, null,expBox28);
