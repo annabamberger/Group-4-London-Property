@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import com.opencsv.CSVReader;
 import java.net.URISyntaxException;
+import java.util.stream.*;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 public class AirbnbDataLoader {
     private int numbers;
     private String id;
@@ -19,15 +22,17 @@ public class AirbnbDataLoader {
     private String room_type;
     private int price;
     private int minimumNights;
-    private int numberOfReviews; 
+    private int sum; 
     private String lastReview;
     private double reviewsPerMonth;
     private int calculatedHostListingsCount;
     private int availability365;
-    private int largest;
+    private AirbnbListing largestP;
     private int number;
+    private AirbnbListing mostExpP;
     private int numberOverSeas;
     private int numberOutdoor;
+    private AirbnbListing nameFavP;
     /** 
      * Return an ArrayList containing the rows in the AirBnB London data set csv file.
      */
@@ -113,8 +118,11 @@ public class AirbnbDataLoader {
         System.out.println("" + listings.size());
         return listings.size();
     }
+ 
     public int numberOfReviews()
-    {     ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
+    {   
+        
+        ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
         
         try{
             URL url = getClass().getResource("airbnb-london.csv");
@@ -145,14 +153,26 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
+           
+                     ArrayList<Integer> numbers = new ArrayList<>();
+                 for(int j =0; j<listings.size(); j++)
+                {  int numberReviews = listing.numberOfReviews();
+                   numbers.add(numberReviews);
+                  
+                   for(int i =0; i<numbers.size(); i++)
+                   {sum+=numbers.get(i);}
+                
             }
+            }
+            
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
             
         }
-        System.out.println(""+ numberOfReviews);
-        return numberOfReviews;
+        
+        System.out.println(""+ sum);
+        return sum;
     }
     public String mostExpensive()
     { ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
@@ -186,20 +206,26 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);  
-                for(int j =0; j<listings.size(); j++)
-                {int cost = listing.minimumCost();
-                int numbers[] = new int[] {cost};
-                int largest = numbers[0];
-                for(int i=1; i<numbers.length; i++) {
-                if(numbers[i]>largest){largest=numbers[i];}
-                }
-            }}
+                
+                 ArrayList<Integer> numbers = new ArrayList<>();
+                 for(int j =0; j<listings.size(); j++)
+                {  int cost = listing.minimumCost();
+                   numbers.add(cost);
+                  int largest = numbers.get(0);
+                   for(int i =0; i<numbers.size(); i++)
+                   {if(numbers.get(i)>largest) {largest=numbers.get(i);
+                       int mostExp= numbers.remove(i); 
+                    AirbnbListing mostExpP = listings.get(mostExp);}}
+                
+            }
+                
+            }
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-       System.out.print("" + name + "at price" + largest);
-       return ""+ largest + name;
+       System.out.print("" + mostExpP );
+       return ""+ mostExpP;
     }
     public int entireHomes()
     {
@@ -275,19 +301,24 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
-                for(int j =0; j<listings.size(); j++)
-                {int size = listing.getSize();
-                int numbers[] = new int[] {size};
-                int largest = numbers[0];
-                for(int i=1; i<numbers.length; i++) {
-                if(numbers[i]>largest){largest=numbers[i];}}
+                ArrayList<Integer> numbers = new ArrayList<>();
+                 for(int j =0; j<listings.size(); j++)
+                {  int size = listing.getSize();
+                   numbers.add(size);
+                  int largest = numbers.get(0);
+                   for(int i =0; i<numbers.size(); i++)
+                   {if(numbers.get(i)>largest) {largest=numbers.get(i);
+                       int largestSize= numbers.remove(i); 
+                   AirbnbListing largestP = listings.get(largestSize);}}
+                
             }
+               
             }
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
             
-        }return ""+ largest + name;
+        }return ""+ largestP;
              
             }
        public int overseas()
@@ -362,18 +393,24 @@ public class AirbnbDataLoader {
                         price, minimumNights, numberOfReviews, lastReview,
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
-                listings.add(listing);  
-                for(int j =0; j<listings.size(); j++)
-                {int fav = listing.numberFavourites();
-                int numbers[] = new int[] {fav};
-                int largest = numbers[0];
-                for(int i=1; i<numbers.length; i++) {
-                if(numbers[i]>largest){largest=numbers[i];}}
-            }}
+                listings.add(listing); 
+                ArrayList<Integer> numbers = new ArrayList<>();
+                 for(int j =0; j<listings.size(); j++)
+                {  int fav = listing.numberFavourites();
+                   numbers.add(fav);
+                  int largest = numbers.get(0);
+                   for(int i =0; i<numbers.size(); i++)
+                   {if(numbers.get(i)>largest) {largest=numbers.get(i);
+                    int nameFav= numbers.remove(i); 
+                    AirbnbListing nameFavP= listings.get(nameFav);
+                     }}
+                
+            }
+               }
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
-        }return "" + largest + name;
+        }return "" + nameFavP;
         }
         public int outdoorSpace()
         {

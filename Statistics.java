@@ -96,8 +96,10 @@ public class Statistics extends Application
         back1.setOnAction(e->stage.setScene(scene8));
         reviewsBox2.getChildren().add(back1);
         
-        Label reviews = new Label("Average number of reviews \n"+
-        "per property  -  "+ dataLoader.numberOfReviews());
+        Button reviews = new Button("Average number of\n"+" reviews \n"+
+        "per property   ");
+        reviews.setPrefSize(300,40);
+        reviews.setOnAction(this::buttonClickReviews);
         
         BorderPane reviewPane = new BorderPane(reviews, null, reviewsBox, null, reviewsBox2);
         reviewPane.setPadding(new Insets(10, 10, 10, 10));
@@ -121,10 +123,12 @@ public class Statistics extends Application
         back2.setOnAction(e->stage.setScene(scene8));
         expBox2.getChildren().add(back2);
         
-        Label expName = new Label
-        ("Most expensive listing according to \n" + 
+        Button expName = new Button
+        ("Most expensive listing\n"+"according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - " + dataLoader.mostExpensive());
+        "of minimum nights");
+         expName.setPrefSize(350,60);
+        expName.setOnAction(this::buttonClickExp);
         
         // Create a new grid pane
         BorderPane expPane = new BorderPane(expName,null, expBox, null,expBox2);
@@ -149,8 +153,10 @@ public class Statistics extends Application
         previous.setOnAction(e->stage.setScene(scene8));
         aptBox2.getChildren().add(previous);
         
-        Label aptName = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - " + dataLoader.entireHomes()); 
+        Button aptName = new Button("Number of homes/\n"+"apartments\n" +
+        "vs single rooms  " ); 
+        aptName.setPrefSize(200,60);
+        aptName.setOnAction(this::buttonClickEntireHomes);
         
         // Create a new grid pane
         BorderPane aptPane = new BorderPane(aptName,null, aptBox, null, aptBox2);
@@ -190,8 +196,10 @@ public class Statistics extends Application
         back1Sc.setOnAction(e->stage.setScene(scene));
         reviewsBox2Sc.getChildren().add(back1Sc);
         
-        Label reviews1 = new Label("Average number of reviews \n"+
-        "per property  -  " + dataLoader.numberOfReviews());
+        Button reviews1 = new Button("Average number of \n"+"reviews \n"+
+        "per property  " );
+        reviews1.setPrefSize(300,40);
+        reviews1.setOnAction(this::buttonClickReviews);
         
         BorderPane reviewPane1 = new BorderPane(reviews1, null, reviewsBoxSc2, null, reviewsBox2Sc);
         reviewPane1.setPadding(new Insets(10, 10, 10, 10));
@@ -215,10 +223,12 @@ public class Statistics extends Application
         back21.setOnAction(e->stage.setScene(scene));
         expBox21.getChildren().add(back21);
         
-        Label expName1 = new Label
-        ("Most expensive borough according to \n" + 
+        Button expName1 = new Button
+        ("Most expensive borough\n"+"according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - " + dataLoader.mostExpensive());
+        "of minimum nights ");
+        expName1.setPrefSize(350,60);
+        expName1.setOnAction(this::buttonClickExp);
         
         // Create a new grid pane
         BorderPane expPane1 = new BorderPane(expName1,null, exp2, null,expBox21);
@@ -243,8 +253,10 @@ public class Statistics extends Application
         previous1.setOnAction(e->stage.setScene(scene));
         aptBox21.getChildren().add(previous1);
         
-        Label aptName1 = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - " + dataLoader.entireHomes()); 
+        Button aptName1 = new Button("Number of homes/\n"+"apartments\n" +
+        "vs single rooms  "); 
+        aptName1.setPrefSize(200,60);
+        aptName1.setOnAction(this::buttonClickEntireHomes);
         
         // Create a new grid pane
         BorderPane aptPane1 = new BorderPane(aptName1,null, aptBox1, null, aptBox21);
@@ -269,8 +281,10 @@ public class Statistics extends Application
         large2.setOnAction(e->stage.setScene(scene));
         largeBox2.getChildren().add(large2);
         
-        Label largeName = new Label("Largest property on the\n"  +
-        "market - " + dataLoader.getLargestSize()); 
+        Button largeName = new Button("Largest property on the\n"  +
+        "market  "); 
+        largeName.setPrefSize(300,40);
+        largeName.setOnAction(this::buttonClickLargest);
         
         // Create a new pane
         BorderPane largePane = new BorderPane(largeName,null, largeBox, null, largeBox2);
@@ -309,10 +323,12 @@ public class Statistics extends Application
         back31.setOnAction(e->stage.setScene(scene2));
         expBox31.getChildren().add(back31);
         
-        Label expName3 = new Label
-        ("Most expensive borough according to \n" + 
+        Button expName3 = new Button
+        ("Most expensive borough\n"+"according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - " + dataLoader.mostExpensive());
+        "of minimum nights  ");
+        expName3.setPrefSize(350,60);
+        expName3.setOnAction(this::buttonClickExp);
         
         // Create a new grid pane
         BorderPane expPane3 = new BorderPane(expName3,null, expBox3, null,expBox31);
@@ -337,8 +353,10 @@ public class Statistics extends Application
         previous3.setOnAction(e->stage.setScene(scene2));
         aptBox31.getChildren().add(previous3);
         
-        Label aptName3 = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - " + dataLoader.entireHomes()); 
+        Button aptName3 = new Button("Number of homes/\n"+"apartments\n" +
+        "vs single rooms   " ); 
+        aptName3.setPrefSize(200,60);
+        aptName3.setOnAction(this::buttonClickEntireHomes);
         
         // Create a new grid pane
         BorderPane aptPane3 = new BorderPane(aptName3,null, aptBox3, null, aptBox31);
@@ -363,8 +381,10 @@ public class Statistics extends Application
         large31.setOnAction(e->stage.setScene(scene5));
         largeBox31.getChildren().add(large31);
         
-        Label largeName3 = new Label("Largest property on the\n"  +
-        "market - " + dataLoader.getLargestSize()); 
+        Button largeName3 = new Button("Largest property on the\n"  +
+        "market " ); 
+        largeName3.setPrefSize(300,40);
+        largeName3.setOnAction(this::buttonClickLargest);
         
         // Create a new pane
         BorderPane largePane3 = new BorderPane(largeName3,null, largeBox3, null, largeBox31);
@@ -389,9 +409,9 @@ public class Statistics extends Application
         previousO.setOnAction(e->stage.setScene(scene2));
         overseaBox2.getChildren().add(previousO);
         
-        Label overseaName = new Label("Number of bookings from overseas\n" +
-        dataLoader.overseas()); 
-        
+        Button overseaName = new Button("Number of bookings\n"+" from overseas"); 
+        overseaName.setPrefSize(300,40);
+        overseaName.setOnAction(this::buttonClickOverseas); 
         // Create a new pane
         BorderPane overseaPane = new BorderPane(overseaName,null, overseaBox, null, overseaBox2);
         overseaPane.setPadding(new Insets(10, 10, 10, 10));
@@ -430,9 +450,10 @@ public class Statistics extends Application
         previous4.setOnAction(e->stage.setScene(scene3));
         aptBox4.getChildren().add(previous4);
         
-        Label aptName4 = new Label("Number of homes/apartments\n" +
-        "vs single rooms  - " + dataLoader.entireHomes()); 
-        
+        Button aptName4 = new Button("Number of homes/\n"+"apartments\n" +
+        "vs single rooms  "); 
+        aptName4.setPrefSize(200,60);
+        aptName4.setOnAction(this::buttonClickEntireHomes);
         // Create a new grid pane
         BorderPane aptPane4 = new BorderPane(aptName4,null, apt4, null, aptBox4);
         aptPane4.setPadding(new Insets(10, 10, 10, 10));
@@ -456,8 +477,10 @@ public class Statistics extends Application
         large41.setOnAction(e->stage.setScene(scene3));
         largeBox41.getChildren().add(large41);
         
-        Label largeName4 = new Label("Largest property on the\n"  +
-        "market - " + dataLoader.getLargestSize()); 
+        Button largeName4 = new Button("Largest property on the\n"  +
+        "market  "); 
+        largeName4.setPrefSize(300,40);
+        largeName4.setOnAction(this::buttonClickLargest);
         
         // Create a new pane
         BorderPane largePane4 = new BorderPane(largeName4,null, largeBox4, null, largeBox41);
@@ -482,8 +505,9 @@ public class Statistics extends Application
         previousO4.setOnAction(e->stage.setScene(scene3));
         overseaBox24.getChildren().add(previousO4);
         
-        Label overseaName4 = new Label("Number of bookings from overseas\n" +
-        dataLoader.overseas()); 
+        Button overseaName4 = new Button("Number of bookings\n"+" from overseas\n" ); 
+       overseaName4.setPrefSize(300,40);
+       overseaName4.setOnAction(this::buttonClickOverseas);
         
         // Create a new pane
         BorderPane overseaPane4 = new BorderPane(overseaName4,null, overseaBox4, null, overseaBox24);
@@ -509,8 +533,9 @@ public class Statistics extends Application
         previousF.setOnAction(e->stage.setScene(scene3));
         favBox2.getChildren().add(previousF);
         
-        Label favName = new Label("Users' favorite property\n" +
-        dataLoader.favProperty()); 
+        Button favName = new Button("Users' favorite property\n" );
+          favName.setPrefSize(300,40);
+        favName.setOnAction(this::buttonClickFav);
         
         // Create a new pane
         BorderPane favPane = new BorderPane(favName,null, favBox, null, favBox2);
@@ -550,8 +575,10 @@ public class Statistics extends Application
         large51.setOnAction(e->stage.setScene(scene4));
         largeBox51.getChildren().add(large51);
         
-        Label largeName5 = new Label("Largest property on the\n"  +
-        "market - "+ dataLoader.getLargestSize()); 
+        Button largeName5 = new Button("Largest property on the\n"  +
+        "market"); 
+          largeName5.setPrefSize(300,40);
+        largeName5.setOnAction(this::buttonClickLargest);
         
         // Create a new pane
         BorderPane largePane5 = new BorderPane(largeName5,null, largeBox5, null, largeBox51);
@@ -576,9 +603,9 @@ public class Statistics extends Application
         previousO5.setOnAction(e->stage.setScene(scene4));
         overseaBox54.getChildren().add(previousO5);
         
-        Label overseaName5 = new Label("Number of bookings from overseas\n" +
-        dataLoader.overseas()); 
-        
+        Button overseaName5 = new Button("Number of bookings\n"+" from overseas\n" ); 
+          overseaName5.setPrefSize(300,40);
+        overseaName5.setOnAction(this::buttonClickOverseas);
         // Create a new pane
         BorderPane overseaPane5 = new BorderPane(overseaName5,null, overseaBox5, null, overseaBox54);
         overseaPane5.setPadding(new Insets(10, 10, 10, 10));
@@ -603,9 +630,9 @@ public class Statistics extends Application
         previousF5.setOnAction(e->stage.setScene(scene4));
         favBox51.getChildren().add(previousF5);
         
-        Label favName5 = new Label("Users' favorite property\n" +
-        dataLoader.favProperty()); 
-        
+        Button favName5 = new Button("Users' favorite property\n" ); 
+          favName5.setPrefSize(300,40);
+        favName5.setOnAction(this::buttonClickFav);
         // Create a new pane
         BorderPane favPane5 = new BorderPane(favName5,null, favBox5, null, favBox51);
         favPane5.setPadding(new Insets(10, 10, 10, 10));
@@ -630,8 +657,10 @@ public class Statistics extends Application
         previousOut.setOnAction(e->stage.setScene(scene4));
         OutBox2.getChildren().add(previousOut);
         
-        Label OutName = new Label("Number of properties with\n" +
-        "outdoor space  -"+ dataLoader.outdoorSpace()); 
+        Button OutName = new Button("Number of properties with\n" +
+        "outdoor space  "); 
+          OutName.setPrefSize(300,40);
+        OutName.setOnAction(this::buttonClickOutdoor);
         
         // Create a new pane
         BorderPane outPane = new BorderPane(OutName,null, outBox, null, OutBox2);
@@ -670,8 +699,10 @@ public class Statistics extends Application
         previousO6.setOnAction(e->stage.setScene(scene5));
         overseaBox64.getChildren().add(previousO6);
         
-        Label overseaName6 = new Label("Number of bookings from overseas\n" +
-        dataLoader.overseas()); 
+        Button overseaName6 = new Button("Number of bookings\n"+" from overseas\n" 
+); 
+  overseaName6.setPrefSize(300,40);
+        overseaName6.setOnAction(this::buttonClickOverseas);
         
         // Create a new pane
         BorderPane overseaPane6 = new BorderPane(overseaName6,null, overseaBox6, null, overseaBox64);
@@ -697,9 +728,9 @@ public class Statistics extends Application
         previousF6.setOnAction(e->stage.setScene(scene5));
         favBox61.getChildren().add(previousF6);
         
-        Label favName6 = new Label("Users' favorite property\n" +
-        dataLoader.favProperty()); 
-        
+        Button favName6 = new Button("Users' favorite property\n"); 
+          favName6.setPrefSize(300,40);
+        favName6.setOnAction(this::buttonClickFav);
         // Create a new pane
         BorderPane favPane6 = new BorderPane(favName6,null, favBox6, null, favBox61);
         favPane6.setPadding(new Insets(10, 10, 10, 10));
@@ -724,8 +755,10 @@ public class Statistics extends Application
         previousOut6.setOnAction(e->stage.setScene(scene5));
         OutBox6.getChildren().add(previousOut6);
         
-        Label OutName6 = new Label("Number of properties with\n" +
-        "outdoor space  - "+dataLoader.outdoorSpace()); 
+        Button OutName6 = new Button("Number of properties with\n" +
+        "outdoor space   "); 
+          OutName6.setPrefSize(300,40);
+        OutName6.setOnAction(this::buttonClickOutdoor);
         
         // Create a new pane
         BorderPane outPane6 = new BorderPane(OutName6,null, outBox6, null, OutBox6);
@@ -750,7 +783,8 @@ public class Statistics extends Application
         back6.setOnAction(e->stage.setScene(scene5));
         statsBox26.getChildren().add(back6);
         
-        Label statName6 = new Label("Number of Properties\n"+   dataLoader.numberListings());
+        Label statName6 = new Label("Number of Properties\n"+ 
+        dataLoader.numberListings());
         
         
         // Create a new grid pane
@@ -791,8 +825,9 @@ public class Statistics extends Application
         previousF7.setOnAction(e->stage.setScene(scene6));
         favBox27.getChildren().add(previousF7);
         
-        Label favName7 = new Label("Users' favorite property\n" +
-       dataLoader.favProperty()); 
+        Button favName7 = new Button("Users' favorite property\n" );
+        favName7.setPrefSize(300,40);
+        favName7.setOnAction(this::buttonClickFav);
         
         // Create a new pane
         BorderPane favPane7 = new BorderPane(favName7,null, favBox7, null, favBox27);
@@ -819,8 +854,10 @@ public class Statistics extends Application
         previousOut7.setOnAction(e->stage.setScene(scene6));
         OutBox27.getChildren().add(previousOut7);
         
-        Label OutName7 = new Label("Number of properties with\n" +
-        "outdoor space  - "+ dataLoader.outdoorSpace()); 
+        Button OutName7 = new Button("Number of properties with\n" +
+        "outdoor space  "); 
+         OutName7.setPrefSize(300,40);
+        OutName7.setOnAction(this::buttonClickOutdoor);
         
         // Create a new pane
         BorderPane outPane7 = new BorderPane(OutName7,null, outBox7, null, OutBox27);
@@ -872,8 +909,9 @@ public class Statistics extends Application
         back17.setOnAction(e->stage.setScene(scene6));
         reviewsBox27.getChildren().add(back17);
         
-        Label reviews7 = new Label("Average number of reviews \n"+
-        dataLoader.numberOfReviews());
+        Button reviews7 = new Button("Average number of\n"+"reviews \n");
+         reviews7.setPrefSize(300,40);
+        reviews7.setOnAction(this::buttonClickReviews);
         
         BorderPane reviewPane7 = new BorderPane(reviews7, null, reviewsBox7, null, reviewsBox27);
         reviewPane7.setPadding(new Insets(10, 10, 10, 10));
@@ -912,8 +950,10 @@ public class Statistics extends Application
         previousOut8.setOnAction(e->stage.setScene(scene7));
         OutBox28.getChildren().add(previousOut8);
         
-        Label OutName8 = new Label("Number of properties with\n" +
-        "outdoor space  - "+dataLoader.outdoorSpace()); 
+        Button OutName8 = new Button("Number of properties with\n" +
+        "outdoor space  "); 
+         OutName8.setPrefSize(300,40);
+        OutName8.setOnAction(this::buttonClickOutdoor);
         
         // Create a new pane
         BorderPane outPane8 = new BorderPane(OutName8,null, outBox8, null, OutBox28);
@@ -965,8 +1005,10 @@ public class Statistics extends Application
         back18.setOnAction(e->stage.setScene(scene7));
         reviewsBox28.getChildren().add(back18);
         
-        Label reviews8 = new Label("Average number of reviews \n"+
-        "per property  -  "+ dataLoader.numberOfReviews());
+        Button reviews8 = new Button("Average number of\n"+"reviews \n"+
+        "per property   ");
+         reviews8.setPrefSize(300,40);
+        reviews8.setOnAction(this::buttonClickReviews);
         
         BorderPane reviewPane8 = new BorderPane(reviews8, null, reviewsBox8, null, reviewsBox28);
         reviewPane8.setPadding(new Insets(10, 10, 10, 10));
@@ -990,10 +1032,12 @@ public class Statistics extends Application
         back28.setOnAction(e->stage.setScene(scene7));
         expBox28.getChildren().add(back28);
         
-        Label expName8 = new Label
-        ("Most expensive borough according to \n" + 
+        Button expName8 = new Button
+        ("Most expensive borough\n"+"according to \n" + 
         "price per night and number \n" +
-        "of minimum nights - "+dataLoader.mostExpensive());
+        "of minimum nights - ");
+         expName8.setPrefSize(350,60);
+        expName8.setOnAction(this::buttonClickExp);
         
         // Create a new grid pane
         BorderPane expPane8 = new BorderPane(expName8,null, expBox8, null,expBox28);
@@ -1028,8 +1072,55 @@ public class Statistics extends Application
      * This will be executed when the button is clicked
      * It increments the count by 1
      */
-    private void buttonClick(ActionEvent event)
-    {
+    private void buttonClickReviews(ActionEvent event)
+    { DataAvgReviews rev = new DataAvgReviews();
+       Stage newStage = new Stage();
+        rev.start(newStage);
+        newStage.show();
+       
+    }
+      private void buttonClickExp(ActionEvent event)
+    { DataExp exp = new DataExp();
+       Stage newStage = new Stage();
+        exp.start(newStage);
+        newStage.show();
+       
+    }
+    private void buttonClickLargest(ActionEvent event)
+    { DataLargest large = new DataLargest();
+       Stage newStage = new Stage();
+        large.start(newStage);
+        newStage.show();
+       
+    }
+    private void buttonClickFav(ActionEvent event)
+    { DataFav fav = new DataFav();
+       Stage newStage = new Stage();
+        fav.start(newStage);
+        newStage.show();
+       
+    }
+      private void buttonClickEntireHomes(ActionEvent event)
+    { DataEntireHomes ent = new DataEntireHomes();
+       Stage newStage = new Stage();
+        ent.start(newStage);
+        newStage.show();
+       
+    }
+    
+      private void buttonClickOverseas(ActionEvent event)
+    { DataOverseas overs = new DataOverseas();
+       Stage newStage = new Stage();
+        overs.start(newStage);
+        newStage.show();
+       
+    }
+    
+      private void buttonClickOutdoor(ActionEvent event)
+    { DataOutdoor out = new DataOutdoor();
+       Stage newStage = new Stage();
+        out.start(newStage);
+        newStage.show();
        
     }
 }
