@@ -11,9 +11,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * Write a description of JavaFX class DataExp here.
+ * Loads most expensive property from data loader class based on daily rate and 
+ * minimum number of nights.
  *
- * @author (your name)
+ * Anna Bamberger
  * @version (a version number or a date)
  */
 public class DataExp extends Application
@@ -33,7 +34,7 @@ public class DataExp extends Application
 
        Label label = new Label(""+dataLoader.mostExpensive());
 
-        // Add the button and label into the pane
+        // Add the label into the pane
         pane.add(label, 1, 0);
 
         // JavaFX must have a Scene (window content) inside a Stage (window)

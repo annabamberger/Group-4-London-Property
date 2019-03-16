@@ -13,7 +13,10 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 /**
- * Write a description of JavaFX class Statistics here.
+ * Displays numerical details available. These are: number of properties, total number 
+ * of reviews, most expensive property, number of homes rather than single rooms,
+ * largest property, bookings from overseas, user's favourite and properties with
+ * outdoor space.
  *
  * @author Anna Bamberger
  * @version (a version number or a date)
@@ -96,8 +99,8 @@ public class Statistics extends Application
         back1.setOnAction(e->stage.setScene(scene8));
         reviewsBox2.getChildren().add(back1);
         
-        Button reviews = new Button("Average number of\n"+" reviews \n"+
-        "per property   ");
+        Button reviews = new Button("Total number of\n"+" reviews \n"+
+        "available  ");
         reviews.setPrefSize(300,40);
         reviews.setOnAction(this::buttonClickReviews);
         
@@ -196,8 +199,8 @@ public class Statistics extends Application
         back1Sc.setOnAction(e->stage.setScene(scene));
         reviewsBox2Sc.getChildren().add(back1Sc);
         
-        Button reviews1 = new Button("Average number of \n"+"reviews \n"+
-        "per property  " );
+        Button reviews1 = new Button("Total number of \n"+"reviews \n"+
+        "available  " );
         reviews1.setPrefSize(300,40);
         reviews1.setOnAction(this::buttonClickReviews);
         
@@ -224,7 +227,7 @@ public class Statistics extends Application
         expBox21.getChildren().add(back21);
         
         Button expName1 = new Button
-        ("Most expensive borough\n"+"according to \n" + 
+        ("Most expensive listing\n"+"according to \n" + 
         "price per night and number \n" +
         "of minimum nights ");
         expName1.setPrefSize(350,60);
@@ -324,7 +327,7 @@ public class Statistics extends Application
         expBox31.getChildren().add(back31);
         
         Button expName3 = new Button
-        ("Most expensive borough\n"+"according to \n" + 
+        ("Most expensive listing\n"+"according to \n" + 
         "price per night and number \n" +
         "of minimum nights  ");
         expName3.setPrefSize(350,60);
@@ -909,7 +912,7 @@ public class Statistics extends Application
         back17.setOnAction(e->stage.setScene(scene6));
         reviewsBox27.getChildren().add(back17);
         
-        Button reviews7 = new Button("Average number of\n"+"reviews \n");
+        Button reviews7 = new Button("Total number of\n"+"reviews \n");
          reviews7.setPrefSize(300,40);
         reviews7.setOnAction(this::buttonClickReviews);
         
@@ -1005,8 +1008,8 @@ public class Statistics extends Application
         back18.setOnAction(e->stage.setScene(scene7));
         reviewsBox28.getChildren().add(back18);
         
-        Button reviews8 = new Button("Average number of\n"+"reviews \n"+
-        "per property   ");
+        Button reviews8 = new Button("Total number of\n"+"reviews \n"+
+        "available   ");
          reviews8.setPrefSize(300,40);
         reviews8.setOnAction(this::buttonClickReviews);
         
@@ -1033,7 +1036,7 @@ public class Statistics extends Application
         expBox28.getChildren().add(back28);
         
         Button expName8 = new Button
-        ("Most expensive borough\n"+"according to \n" + 
+        ("Most expensive listing\n"+"according to \n" + 
         "price per night and number \n" +
         "of minimum nights - ");
          expName8.setPrefSize(350,60);
@@ -1059,7 +1062,7 @@ public class Statistics extends Application
         scene8 = new Scene(grid7, 800,600);
 
         stage.setScene(scene);
-        stage.setTitle("");
+        stage.setTitle("Available stats for property");
         // Show the Stage (window)
         stage.show();
         
@@ -1069,8 +1072,7 @@ public class Statistics extends Application
   
    
     /**
-     * This will be executed when the button is clicked
-     * It increments the count by 1
+     * opens new window with total reviews number
      */
     private void buttonClickReviews(ActionEvent event)
     { DataAvgReviews rev = new DataAvgReviews();
@@ -1079,6 +1081,7 @@ public class Statistics extends Application
         newStage.show();
        
     }
+    //opens new window with most expensive data
       private void buttonClickExp(ActionEvent event)
     { DataExp exp = new DataExp();
        Stage newStage = new Stage();
@@ -1086,6 +1089,7 @@ public class Statistics extends Application
         newStage.show();
        
     }
+    //opens new window with largest property data
     private void buttonClickLargest(ActionEvent event)
     { DataLargest large = new DataLargest();
        Stage newStage = new Stage();
@@ -1093,6 +1097,7 @@ public class Statistics extends Application
         newStage.show();
        
     }
+    //opens new window with favourite data
     private void buttonClickFav(ActionEvent event)
     { DataFav fav = new DataFav();
        Stage newStage = new Stage();
@@ -1100,6 +1105,7 @@ public class Statistics extends Application
         newStage.show();
        
     }
+    //oopens new window with entire home data
       private void buttonClickEntireHomes(ActionEvent event)
     { DataEntireHomes ent = new DataEntireHomes();
        Stage newStage = new Stage();
@@ -1107,7 +1113,7 @@ public class Statistics extends Application
         newStage.show();
        
     }
-    
+    //opens new window with oversea data
       private void buttonClickOverseas(ActionEvent event)
     { DataOverseas overs = new DataOverseas();
        Stage newStage = new Stage();
@@ -1115,7 +1121,7 @@ public class Statistics extends Application
         newStage.show();
        
     }
-    
+    //opens new window with outdoor data
       private void buttonClickOutdoor(ActionEvent event)
     { DataOutdoor out = new DataOutdoor();
        Stage newStage = new Stage();

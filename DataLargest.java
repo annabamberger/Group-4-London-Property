@@ -11,9 +11,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * Write a description of JavaFX class DataLargest here.
+ * Loads largest property from data loader class.
  *
- * @author (your name)
+ * Anna Bamberger
  * @version (a version number or a date)
  */
 public class DataLargest extends Application
@@ -34,7 +34,7 @@ public class DataLargest extends Application
 
         Label label = new Label(""+dataLoader.getLargestSize());
 
-        // Add the button and label into the pane
+        // Add the label into the pane
         pane.add(label, 1, 0);
 
         // JavaFX must have a Scene (window content) inside a Stage (window)

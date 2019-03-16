@@ -10,6 +10,9 @@ import java.net.URISyntaxException;
 import java.util.stream.*;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+/**Loads data relating to the specific inquiry.
+ * Anna Bamberger
+ */
 public class AirbnbDataLoader {
     private int numbers;
     private String id;
@@ -153,7 +156,7 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
-           
+               //returns number of total reviews after adding reviews for eah property
                      ArrayList<Integer> numbers = new ArrayList<>();
                  for(int j =0; j<listings.size(); j++)
                 {  int numberReviews = listing.numberOfReviews();
@@ -206,7 +209,7 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);  
-                
+                //returns most expensive property after comparing all prices 
                  ArrayList<Integer> numbers = new ArrayList<>();
                  for(int j =0; j<listings.size(); j++)
                 {  int cost = listing.minimumCost();
@@ -301,6 +304,7 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
+                //returns largest size after comparing all sizes
                 ArrayList<Integer> numbers = new ArrayList<>();
                  for(int j =0; j<listings.size(); j++)
                 {  int size = listing.getSize();
@@ -394,6 +398,7 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing); 
+                //returns favourite property of users after comparing number of favourite clicks
                 ArrayList<Integer> numbers = new ArrayList<>();
                  for(int j =0; j<listings.size(); j++)
                 {  int fav = listing.numberFavourites();

@@ -93,7 +93,7 @@ public class AirbnbListing {
     }
     public boolean entireHomes()
     {return false;}
-    
+    //independent homes rather than room in shared space
     public int numberEntireHomes()
     { if(entireHomes()) {numberEntireHomes++;}
     return numberEntireHomes;
@@ -139,7 +139,7 @@ public class AirbnbListing {
     }
     public boolean overseas()
     {return false;}
-    
+    //number of bookings from overseas
     public int numberOverseas()
     {if(overseas()) {overseas++;}
     return overseas;
@@ -151,6 +151,7 @@ public class AirbnbListing {
     public static int getMinimumNights() {
         return minimumNights;
     }
+    //minimum cost of a booking is price multiplied by minimum nights
     public static int minimumCost()
     {int minimumCost = getPrice()*getMinimumNights();
         return minimumCost;
@@ -162,6 +163,7 @@ public class AirbnbListing {
    public void toggleFavourite()
    {  isFavourite=!isFavourite;
     }
+    //number favourite clicks as chosen by user
     public int numberFavourites()
     { if(isFavourite) {numberFavourites++;}
     return numberFavourites;

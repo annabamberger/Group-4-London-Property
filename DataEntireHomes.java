@@ -11,9 +11,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * Write a description of JavaFX class DataEntireHomes here.
+ * Loads number of properties that are homes rather than single rooms from data loader class.
  *
- * @author (your name)
+ * Anna Bamberger
  * @version (a version number or a date)
  */
 public class DataEntireHomes extends Application
@@ -30,7 +30,7 @@ public class DataEntireHomes extends Application
         pane.setHgap(10);
         Label  label = new Label(""+dataLoader.entireHomes());
 
-        // Add the button and label into the pane
+        // Add the label into the pane
         pane.add(label, 1, 0);
 
         // JavaFX must have a Scene (window content) inside a Stage (window)
