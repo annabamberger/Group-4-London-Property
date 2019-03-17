@@ -20,6 +20,9 @@ public class Map extends Application
 {
     private Stage stage;     
     private Label imageLabel; 
+    private StatisticsBox statisticsBox;
+    private Statistics statistics;
+    
 
     /**
      * The main entry point for JavaFX programs.
@@ -110,6 +113,8 @@ public class Map extends Application
         grid.add(croyButtom,400,540);
         grid.add(bromButtom,500,540);
         
+        
+        
         Scene scene = new Scene(root,800,600);	
         
         stage.setTitle("Map");
@@ -128,4 +133,6 @@ public class Map extends Application
     {
         
     }    
+    
+    
 }
