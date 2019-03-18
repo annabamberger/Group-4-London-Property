@@ -151,6 +151,10 @@ public class AirbnbListing {
     public static int getMinimumNights() {
         return minimumNights;
     }
+    
+    public int getNumberOfReviews() {
+        return numberOfReviews;
+    }
     //minimum cost of a booking is price multiplied by minimum nights
     public static int minimumCost()
     {int minimumCost = getPrice()*getMinimumNights();
