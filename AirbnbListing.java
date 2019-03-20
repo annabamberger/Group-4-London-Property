@@ -90,9 +90,11 @@ public class AirbnbListing {
         this.calculatedHostListingsCount = calculatedHostListingsCount;
         this.availability365 = availability365;
         setSize(size);
+       
     }
     public boolean entireHomes()
-    {return false;}
+    {   if(name.contains("room") || name.contains("share")) {return false;}
+        return true;}
     //independent homes rather than room in shared space
     public int numberEntireHomes()
     { if(entireHomes()) {numberEntireHomes++;}

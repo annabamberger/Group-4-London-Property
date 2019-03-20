@@ -31,11 +31,14 @@ public class AirbnbDataLoader {
     private int calculatedHostListingsCount;
     private int availability365;
     private AirbnbListing largestP;
-    private int number;
-    private AirbnbListing mostExpP;
+    private ArrayList<String> number;
+    private AirbnbListing listingExp;
     private int numberOverSeas;
     private int numberOutdoor;
     private AirbnbListing nameFavP;
+    private AirbnbListing listing;
+    private ArrayList<AirbnbListing> listings;
+    private String expS;
     /** 
      * Return an ArrayList containing the rows in the AirBnB London data set csv file.
      */
@@ -121,11 +124,9 @@ public class AirbnbDataLoader {
         System.out.println("" + listings.size());
         return listings.size();
     }
- 
+  
     public int numberOfReviews()
     {   
-        
-        ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
         
         try{
             URL url = getClass().getResource("airbnb-london.csv");
@@ -133,39 +134,15 @@ public class AirbnbDataLoader {
             String [] line;
             //skip the first row (column headers)
             reader.readNext();
+            ArrayList<Integer> reviews = new ArrayList<>();
             while ((line = reader.readNext()) != null) {
-                String id = line[0];
-                String name = line[1];
-                String host_id = line[2];
-                String host_name = line[3];
-                String neighbourhood = line[4];
-                double latitude = convertDouble(line[5]);
-                double longitude = convertDouble(line[6]);
-                String room_type = line[7];
-                int price = convertInt(line[8]);
-                int minimumNights = convertInt(line[9]);
                 int numberOfReviews = convertInt(line[10]);
-                String lastReview = line[11];
-                double reviewsPerMonth = convertDouble(line[12]);
-                int calculatedHostListingsCount = convertInt(line[13]);
-                int availability365 = convertInt(line[14]);
+                reviews.add(numberOfReviews);
+              
+                 for(int j =0; j<reviews.size(); j++)
+                {  sum+=reviews.get(j);}
                 
-                AirbnbListing listing = new AirbnbListing(id, name, host_id,
-                        host_name, neighbourhood, latitude, longitude, room_type,
-                        price, minimumNights, numberOfReviews, lastReview,
-                        reviewsPerMonth, calculatedHostListingsCount, availability365
-                    );
-                listings.add(listing);
-               //returns number of total reviews after adding reviews for eah property
-                     ArrayList<Integer> numbers = new ArrayList<>();
-                 for(int j =0; j<listings.size(); j++)
-                {  int numberReviews = listing.numberOfReviews();
-                   numbers.add(numberReviews);
-                  
-                   for(int i =0; i<numbers.size(); i++)
-                   {sum+=numbers.get(i);}
-                
-            }
+            
             }
             
         } catch(IOException | URISyntaxException e){
@@ -177,16 +154,18 @@ public class AirbnbDataLoader {
         System.out.println(""+ sum);
         return sum;
     }
-    public String mostExpensive()
-    { ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-       
+    public AirbnbListing mostExpensive()
+    { 
+             ArrayList<AirbnbListing> listings = new ArrayList<>();
+              int largest = 0;
+              AirbnbListing listingExp = listings.remove(largest);
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
-            String [] line;
+             String [] line;
             //skip the first row (column headers)
             reader.readNext();
-            while ((line = reader.readNext()) != null) {
+            while ((line = reader.readNext()) != null) {  
                 String id = line[0];
                 String name = line[1];
                 String host_id = line[2];
@@ -202,79 +181,57 @@ public class AirbnbDataLoader {
                 double reviewsPerMonth = convertDouble(line[12]);
                 int calculatedHostListingsCount = convertInt(line[13]);
                 int availability365 = convertInt(line[14]);
-
+                
                 AirbnbListing listing = new AirbnbListing(id, name, host_id,
                         host_name, neighbourhood, latitude, longitude, room_type,
                         price, minimumNights, numberOfReviews, lastReview,
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
-                listings.add(listing);  
-                //returns most expensive property after comparing all prices 
-                 ArrayList<Integer> numbers = new ArrayList<>();
-                 for(int j =0; j<listings.size(); j++)
-                {  int cost = listing.minimumCost();
-                   numbers.add(cost);
-                  int largest = numbers.get(0);
-                   for(int i =0; i<numbers.size(); i++)
-                   {if(numbers.get(i)>largest) {largest=numbers.get(i);
-                       int mostExp= numbers.remove(i); 
-                    AirbnbListing mostExpP = listings.get(mostExp);}}
+                listings.add(listing);
+              
+                for (int i =0; i<listings.size();i++) {
+                   
+                int minimumCost =price*minimumNights;
+                if(minimumCost>largest) {
+                    largest=minimumCost;
+                 listingExp = listings.remove(i); }}
                 
-            }
-                
-            }
-        } catch(IOException | URISyntaxException e){
+          }} catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-       System.out.print("" + mostExpP );
-       return ""+ mostExpP;
+                     
+       System.out.print("" + largest );
+       return listingExp;
     }
     public int entireHomes()
-    {
-        ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-       
+    { 
+              ArrayList<String> number = new ArrayList<>();
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
             String [] line;
             //skip the first row (column headers)
-            reader.readNext();
+            reader.readNext();  
             while ((line = reader.readNext()) != null) {
-                String id = line[0];
-                String name = line[1];
-                String host_id = line[2];
-                String host_name = line[3];
-                String neighbourhood = line[4];
-                double latitude = convertDouble(line[5]);
-                double longitude = convertDouble(line[6]);
-                String room_type = line[7];
-                int price = convertInt(line[8]);
-                int minimumNights = convertInt(line[9]);
-                int numberOfReviews = convertInt(line[10]);
-                String lastReview = line[11];
-                double reviewsPerMonth = convertDouble(line[12]);
-                int calculatedHostListingsCount = convertInt(line[13]);
-                int availability365 = convertInt(line[14]);
-
-                AirbnbListing listing = new AirbnbListing(id, name, host_id,
-                        host_name, neighbourhood, latitude, longitude, room_type,
-                        price, minimumNights, numberOfReviews, lastReview,
-                        reviewsPerMonth, calculatedHostListingsCount, availability365
-                    );
-                listings.add(listing);
-                int number=listing.numberEntireHomes();
-            }
-        } catch(IOException | URISyntaxException e){
+                
+                String room_type = line[7]; 
+                 
+                if(!room_type.contains("room"))
+                {number.add(name);}
+                
+        }} catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
         
-         return number;}
+         return number.size();}
          
-         public String getLargestSize()
-         {   ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-        
+         public AirbnbListing getLargestSize()
+         {       ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
+                 
+                   int largest = 0;
+                   AirbnbListing largestP = listings.get(largest);
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -304,30 +261,25 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
-                //returns largest size after comparing all sizes
-                ArrayList<Integer> numbers = new ArrayList<>();
+              
                  for(int j =0; j<listings.size(); j++)
-                {  int size = listing.getSize();
-                   numbers.add(size);
-                  int largest = numbers.get(0);
-                   for(int i =0; i<numbers.size(); i++)
-                   {if(numbers.get(i)>largest) {largest=numbers.get(i);
-                       int largestSize= numbers.remove(i); 
-                   AirbnbListing largestP = listings.get(largestSize);}}
+                {  int size = listing.getSize(); 
+                  
+                   if(size>largest) {largest=size;}
                 
             }
-               
             }
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
             
-        }return ""+ largestP;
+        }
+         return largestP;
              
             }
        public int overseas()
        {  ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-        
+         int numberOverseas =0;
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -357,7 +309,8 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
-                listing.numberOverseas();
+                 for(int j =0; j<listings.size(); j++)
+                {numberOverseas+=listings.get(j).numberOverseas();}
             
             }
         } catch(IOException | URISyntaxException e){
@@ -366,9 +319,10 @@ public class AirbnbDataLoader {
             
         }return numberOverSeas;
         }
-        public String favProperty()
+        public AirbnbListing favProperty()
         {ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-       
+        int largest = 0;
+              AirbnbListing nameFavP = listings.remove(largest);
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -398,16 +352,11 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing); 
-                //returns favourite property of users after comparing number of favourite clicks
-                ArrayList<Integer> numbers = new ArrayList<>();
                  for(int j =0; j<listings.size(); j++)
-                {  int fav = listing.numberFavourites();
-                   numbers.add(fav);
-                  int largest = numbers.get(0);
-                   for(int i =0; i<numbers.size(); i++)
-                   {if(numbers.get(i)>largest) {largest=numbers.get(i);
-                    int nameFav= numbers.remove(i); 
-                    AirbnbListing nameFavP= listings.get(nameFav);
+                {  int fav = listings.get(j).numberFavourites();
+                  
+                   {if(fav>largest) {largest=fav;
+                    nameFavP= listings.get(j);
                      }}
                 
             }
@@ -415,13 +364,13 @@ public class AirbnbDataLoader {
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
-        }return "" + nameFavP;
+        }return nameFavP;
         }
         public int outdoorSpace()
         {
         
         ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-       
+       int numberOutDoor=0;
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -451,7 +400,8 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 listings.add(listing);
-                listing.numberOutdoor();
+                for(int i=0; i<listings.size(); i++)
+                {numberOutDoor +=listings.get(i).numberOutdoor();}
             }
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
