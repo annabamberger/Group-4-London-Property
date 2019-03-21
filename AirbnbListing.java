@@ -92,14 +92,7 @@ public class AirbnbListing {
         setSize(size);
        
     }
-    public boolean entireHomes()
-    {   if(name.contains("room") || name.contains("share")) {return false;}
-        return true;}
-    //independent homes rather than room in shared space
-    public int numberEntireHomes()
-    { if(entireHomes()) {numberEntireHomes++;}
-    return numberEntireHomes;
-    }
+
 
     public String getId() {
         return id;

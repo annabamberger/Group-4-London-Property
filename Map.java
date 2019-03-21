@@ -49,7 +49,6 @@ public class Map extends Application
     {
         Label mapLabel = new Label("It's the map of London.");
          ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-       
    
         Button enfiButton = new Button("ENFI");
           enfiButton.setPrefSize(100,100);
@@ -61,8 +60,10 @@ public class Map extends Application
             135.0, 125.0, 135.0,75.0});
         enfiButton.setShape(polygon);
         
-        enfiButton.setBackground(new Background(new BackgroundFill(Color.RED,
-        CornerRadii.EMPTY, Insets.EMPTY)));
+       for(int i = 0; i<listings.size(); i++)
+        {if(listings.get(i).getNeighbourhood().equals("Enfield")&& listings.get(i).getPrice()>200)
+        {enfiButton.setBackground(new Background(new BackgroundFill(Color.RED,
+        CornerRadii.EMPTY, Insets.EMPTY)));}}
        
         Group enf = new Group();
         enf.getChildren().add(enfiButton);

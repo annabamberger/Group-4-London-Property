@@ -31,10 +31,10 @@ public class AirbnbDataLoader {
     private int calculatedHostListingsCount;
     private int availability365;
     private AirbnbListing largestP;
-    private ArrayList<String> number;
     private AirbnbListing listingExp;
     private int numberOverSeas;
     private int numberOutdoor;
+    private int largest;
     private AirbnbListing nameFavP;
     private AirbnbListing listing;
     private ArrayList<AirbnbListing> listings;
@@ -127,7 +127,7 @@ public class AirbnbDataLoader {
   
     public int numberOfReviews()
     {   
-        
+       
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -151,14 +151,12 @@ public class AirbnbDataLoader {
             
         }
         
-        System.out.println(""+ sum);
         return sum;
     }
     public AirbnbListing mostExpensive()
     { 
              ArrayList<AirbnbListing> listings = new ArrayList<>();
-              int largest = 0;
-              AirbnbListing listingExp = listings.remove(largest);
+       
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -190,18 +188,19 @@ public class AirbnbDataLoader {
                 listings.add(listing);
               
                 for (int i =0; i<listings.size();i++) {
-                   
-                int minimumCost =price*minimumNights;
-                if(minimumCost>largest) {
-                    largest=minimumCost;
-                 listingExp = listings.remove(i); }}
+                    largest = listings.get(0).minimumCost();
+                    int largestNext=listings.get(i).minimumCost();
+           if(largestNext>largest) {largest=largestNext;
+                    listingExp=listings.get(i);
+                 
+              }
+           }
                 
           }} catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-                     
-       System.out.print("" + largest );
+       
        return listingExp;
     }
     public int entireHomes()
@@ -230,8 +229,7 @@ public class AirbnbDataLoader {
          public AirbnbListing getLargestSize()
          {       ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
                  
-                   int largest = 0;
-                   AirbnbListing largestP = listings.get(largest);
+                 
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -263,9 +261,10 @@ public class AirbnbDataLoader {
                 listings.add(listing);
               
                  for(int j =0; j<listings.size(); j++)
-                {  int size = listing.getSize(); 
+                {   largest = listings.get(0).getSize();
+                    int size = listings.get(j).getSize(); 
                   
-                   if(size>largest) {largest=size;}
+                   if(size>largest) {largest=size; largestP = listings.get(j);}
                 
             }
             }
@@ -321,8 +320,8 @@ public class AirbnbDataLoader {
         }
         public AirbnbListing favProperty()
         {ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
-        int largest = 0;
-              AirbnbListing nameFavP = listings.remove(largest);
+  
+           
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -354,9 +353,8 @@ public class AirbnbDataLoader {
                 listings.add(listing); 
                  for(int j =0; j<listings.size(); j++)
                 {  int fav = listings.get(j).numberFavourites();
-                  
-                   {if(fav>largest) {largest=fav;
-                    nameFavP= listings.get(j);
+                  largest =listings.get(0).numberFavourites();
+                   {if(fav>largest) {largest=fav; nameFavP = listings.get(j);
                      }}
                 
             }
