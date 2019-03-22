@@ -20,7 +20,6 @@ public class Map extends Application
 {
     private Stage stage;     
     private Label imageLabel; 
-    private StatisticsBox statisticsBox;
     private Statistics statistics;
     
 
