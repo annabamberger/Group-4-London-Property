@@ -69,7 +69,7 @@ public class WindowDisplay extends Application
         root = new BorderPane(welcomeLabel, topPane, null, bottomPane, null);
         
         // JavaFX must have a Scene (window content) inside a Stage (window)
-        Scene scene = new Scene(root, 1000,750);
+        Scene scene = new Scene(root, 1000,770);
         scene.getStylesheets().add("welcome.css");
         stage.setTitle("London Property Market");
         stage.setScene(scene);
@@ -164,6 +164,7 @@ public class WindowDisplay extends Application
         Button submitButton = new Button("submit");
         submitButton.setOnAction(this::submitButtonClick);
         Button listProperty = new Button("Get your property listed!");
+        listProperty.setOnAction(this::listPropertyButtonClick);
         formPane.add(zeroTF, 1, 0);
         formPane.add(firstTF, 1, 1);
         formPane.add(secondTF, 1, 2);
@@ -176,6 +177,15 @@ public class WindowDisplay extends Application
         
         root.setTop(titleLabel);
         root.setCenter(formPane);
+    }
+    
+    private void listPropertyButtonClick(ActionEvent event)
+    {
+        Label title = new Label("Property Lease Form");
+        title.setId("titleLabel");
+        root.setTop(title);
+        Host listPanel = new Host();
+        root.setCenter(listPanel.start());
     }
     
     private boolean validName(String input)

@@ -13,7 +13,7 @@
 #titleLabel{
     -fx-underline: true;
     -fx-text-fill: red;
-    -fx-label-padding: 20px;
+    -fx-label-padding: 15px;
     -fx-font-size: 30;
     -fx-font-weight: bold;
 }
