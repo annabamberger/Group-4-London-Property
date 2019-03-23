@@ -1,0 +1,44 @@
+.pricepane{
+    -fx-spacing: 10px;
+}
+
+#bottompane{
+    -fx-padding: 12px;
+}
+
+#toppane{
+    -fx-padding: 12px;
+}
+
+#titleLabel{
+    -fx-underline: true;
+    -fx-text-fill: red;
+    -fx-label-padding: 20px;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
+
+#info{
+    -fx-spacing: 50px;
+    -fx-padding: 10px;
+}
+
+#typefield{
+    -fx-spacing: 40px;
+    -fx-padding: 10px;
+}
+
+#formpane{
+    -fx-padding: 50px;
+}
+
+#invalidlabel{
+    -fx-text-fill: red;
+}
+
+#validlabel{
+    -fx-text-fill: green;
+}
+
+
+
