@@ -9,7 +9,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.util.ArrayList;
-import java.util.Stack;
+
 
 /**
  * 
@@ -23,7 +23,6 @@ public class WindowDisplay extends Application
     private int toPrice = 0;
     private ArrayList<TextField> textFields = new ArrayList<TextField>();
     private BorderPane root;
-    private Stack<Pane> panelTrace;
     private Stage stage;
     
 
