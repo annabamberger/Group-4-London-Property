@@ -286,8 +286,8 @@ public class WindowDisplay extends Application
     { 
        Statistics stats = new Statistics();
        Stage newStage = new Stage();
-        stats.start(newStage);
-        newStage.show();
+       stats.start(newStage);
+       newStage.show();
     }
     
     private void priceErrorAlert()
