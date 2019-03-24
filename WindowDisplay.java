@@ -69,8 +69,13 @@ public class WindowDisplay extends Application
         root = new BorderPane(welcomeLabel, topPane, null, bottomPane, null);
         
         // JavaFX must have a Scene (window content) inside a Stage (window)
+<<<<<<< HEAD
         Scene scene = new Scene(root, 1000,770);
         scene.getStylesheets().add("welcome.css");
+=======
+        Scene scene = new Scene(root, 1000,700);
+        //scene.getStylesheets().add("welcome.css");
+>>>>>>> refs/heads/Ziling
         stage.setTitle("London Property Market");
         stage.setScene(scene);
 
@@ -349,6 +354,10 @@ public class WindowDisplay extends Application
      */
     private void proceed()
     { 
+    	MainApp.main(null);
+    	MainApp.price_low_= fromPrice ;
+    	MainApp.price_top_ = toPrice;
+    	
        Statistics stats = new Statistics();
        Stage newStage = new Stage();
        stats.start(newStage);
@@ -380,6 +389,7 @@ public class WindowDisplay extends Application
         alert.showAndWait();
     }
     
+<<<<<<< HEAD
     /**
      * Create an alert information dialog to give a 
      * confirmation information to the user when they 
@@ -408,5 +418,9 @@ public class WindowDisplay extends Application
         alert.setContentText("Please ensure that you have filled in all the fields\n" + 
                              "and your information is valid.");
         alert.showAndWait();
+=======
+    public static void main(String[] args) {
+        launch(args);
+>>>>>>> refs/heads/Ziling
     }
 }
