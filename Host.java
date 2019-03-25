@@ -7,33 +7,31 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
+import java.util.ArrayList;
 
 /**
- * 在这里给出对类 Host 的描述。
- * 
- * @作者（你的名字）
- * @版本（一个版本号或者一个日期）
+ * Create a panel of property lease form.
+ * @author Li Peiyao, Chen Yuhan
+ * @version (a version number or a date)
  */
-public class Host extends Application
+public class Host
 {
-    // 实例变量 - 用你自己的变量替换下面的例子
+    private ArrayList<TextField> textFields = new ArrayList<TextField>();
     
 
     /**
-     * 类 Host 的对象的构造函数
+     * 
      */
     public Host()
     {
         
     }
-
+ 
     /**
-     * 一个方法的例子 - 使用你自己的说明替代它
-     * 
-     * @参数 y，方法的一个样本参数
-     * @返回 x，y的和 
+     * Create the property lease form.
+     * @return the created panel
      */
-    public void start(Stage stage)
+    public GridPane start()
     {
         GridPane grid = new GridPane();
         grid.setHgap (10);
@@ -43,12 +41,13 @@ public class Host extends Application
         tool.setSpacing(100.0);
         
         Button submit = new Button("Submit");
-        submit.setOnAction(e -> new Submit().success());
+        submit.setOnAction(this::success);
         
         Label hostName = new Label("Your name:");
         TextField thName = new TextField();
-        Label hostBirth = new Label("Your birth(DD/MM/YYYY):");
+        Label hostBirth = new Label("Your birth:");
         TextField thBirth = new TextField();
+        thBirth.setPromptText("DD/MM/YYYY");
         Label hostPhone = new Label("Your phone number:");
         TextField thPhone = new TextField();
         Label hostEmail = new Label("Your email address:");
@@ -60,7 +59,7 @@ public class Host extends Application
         Label information = new Label("More information of the property(eg.room type,neighbourhood):");
         TextField tInformation = new TextField();
         Label startDate = new Label("The earliest available date:");
-        TextField tsDate = new TextField();
+        TextField tDate = new TextField();
         Label period = new Label("How long is the property available:");
         TextField tPeriod = new TextField();
         Label idealPrice = new Label("Your ideal price(pw/pm):");
@@ -87,7 +86,7 @@ public class Host extends Application
         grid.add(information,1,6);
         grid.add(tInformation,2,6);
         grid.add(startDate,1,7);
-        grid.add(tsDate,2,7);
+        grid.add(tDate,2,7);
         grid.add(period,1,8);
         grid.add(tPeriod,2,8);
         grid.add(idealPrice,1,9);
@@ -100,14 +99,74 @@ public class Host extends Application
         grid.add(thRequest,2,12);
         grid.add(submit,3,14);
         
-         // JavaFX must have a Scene (window content) inside a Stage (window)
-        Scene scene = new Scene(grid, 900,700);
-        stage.setTitle("Property Lease Form");
-        stage.setScene(scene);
-
-        // Show the Stage (window)
-        stage.show();
+        textFields.add(thName);
+        textFields.add(thBirth);
+        textFields.add(thPhone);
+        textFields.add(thEmail);
+        textFields.add(tAddress);
+        textFields.add(tPostcode);
+        textFields.add(tInformation);
+        textFields.add(tDate);
+        textFields.add(tPeriod);
+        textFields.add(tiPrice);
+        textFields.add(tmPrice);
+        textFields.add(tOffer);
+        textFields.add(thName);
+        textFields.add(thRequest);
+       
+        return grid;
     }   
     
+    /**
+     * Check if the user filled in all the information and be able to submit.
+     * @return if the user can submit or not
+     */
+    private boolean canSubmit()
+    {
+        for(TextField textField : textFields){
+            if(textField.getText().isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
     
+    /**
+     * The action event of the "submit" button.
+     */
+    private void success(ActionEvent event)
+    {
+        if(canSubmit()){
+            submitConfirmation();
+        }
+        else{
+            submitAlert();
+        }
+    }
+    
+    /**
+     * Create an alert information dialog to give a 
+     * confirmation information to the user when they 
+     * submit the property lease form.
+     */
+    public void submitConfirmation()
+    {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Success");
+        alert.setContentText("You have submited successfully!Our stuff will contact you soon for further information.");
+        alert.showAndWait();
+    }
+    
+    /**
+     * Create an alert error dialog if the user submit their 
+     * form with incompleated information.
+     */
+    private void submitAlert()
+    {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Submit Information: Error");
+        alert.setHeaderText("Your information is not completed."); 
+        alert.setContentText("Please ensure that you have filled in all the fields\n");       
+        alert.showAndWait();
+    }
 }
