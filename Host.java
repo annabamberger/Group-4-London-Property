@@ -10,7 +10,6 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.ArrayList;
 
 /**
- * Create a panel of property lease form.
  * @author Li Peiyao, Chen Yuhan
  * @version (a version number or a date)
  */
@@ -28,8 +27,7 @@ public class Host
     }
  
     /**
-     * Create the property lease form.
-     * @return the created panel
+     * 
      */
     public GridPane start()
     {
@@ -117,10 +115,6 @@ public class Host
         return grid;
     }   
     
-    /**
-     * Check if the user filled in all the information and be able to submit.
-     * @return if the user can submit or not
-     */
     private boolean canSubmit()
     {
         for(TextField textField : textFields){
@@ -131,9 +125,6 @@ public class Host
         return true;
     }
     
-    /**
-     * The action event of the "submit" button.
-     */
     private void success(ActionEvent event)
     {
         if(canSubmit()){
@@ -144,11 +135,6 @@ public class Host
         }
     }
     
-    /**
-     * Create an alert information dialog to give a 
-     * confirmation information to the user when they 
-     * submit the property lease form.
-     */
     public void submitConfirmation()
     {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -157,10 +143,6 @@ public class Host
         alert.showAndWait();
     }
     
-    /**
-     * Create an alert error dialog if the user submit their 
-     * form with incompleated information.
-     */
     private void submitAlert()
     {
         Alert alert = new Alert(AlertType.ERROR);
