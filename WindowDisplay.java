@@ -70,8 +70,13 @@ public class WindowDisplay extends Application
         root = new BorderPane(welcomeLabel, topPane, null, bottomPane, null);
         
         // JavaFX must have a Scene (window content) inside a Stage (window)
+
         Scene scene = new Scene(root, 1000,770);
         scene.getStylesheets().add("welcome.css");
+
+        //Scene scene = new Scene(root, 1000,700);
+        //scene.getStylesheets().add("welcome.css");
+
         stage.setTitle("London Property Market");
         stage.setScene(scene);
 
@@ -80,7 +85,7 @@ public class WindowDisplay extends Application
     }
  
     /**
-     * The action event of clicking the "OK" button.
+     * 
      */
     private void okButtonClick(ActionEvent event)
     {  
@@ -95,21 +100,12 @@ public class WindowDisplay extends Application
         }
     }
     
-    /**
-     * The action event of clicking the "Book your property here" button.
-     */
     private void inquiryButtonClick(ActionEvent event)
     {
         setInquiryPanel();
         
     }
     
-    /**
-     * A new panel of property listing form. 
-     * The user can inquire about a specific listing meeting his requirements here.
-     * User can also click to next page where he can upload details about his own 
-     * property for potential future listing.
-     */
     private void setInquiryPanel()
     {
         Label titleLabel = new Label("Property Inquiry Form (Finish this form to confirm your booking)");
@@ -189,10 +185,6 @@ public class WindowDisplay extends Application
         root.setCenter(formPane);
     }
     
-    /**
-     * The action event of clicking the "Get your property listed!" button.
-     * Create a new panel of property lease form.
-     */
     private void listPropertyButtonClick(ActionEvent event)
     {
         Label title = new Label("Property Lease Form");
@@ -202,45 +194,24 @@ public class WindowDisplay extends Application
         root.setCenter(listPanel.start());
     }
     
-    /**
-     * The format of the name text field.
-     * @param input the input string from the user
-     * @return if the format is correct
-     */
     private boolean validName(String input)
     {
         String format = "[A-Za-z\\s]+"; 
         return input.matches(format);
     }
     
-    /**
-     * The format of the number text field.
-     * @param input the input string from the user
-     * @return if the format is correct
-     */
     private boolean validNumber(String input)
     {
         String format = "[0-9\\s]+"; 
         return input.matches(format);
     }
     
-    /**
-     * The format of the date text field.
-     * @param input the input string from the user
-     * @return if the format is correct
-     */
     private boolean validDate(String input)
     {
         String format = "(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[1-2])/(20[1-9][0-9])"; 
         return input.matches(format);
     }
     
-    /**
-     * Check if the user input string of name format 
-     * is valid and set a validity label.
-     * @param tf the corresponding text field of the input string
-     * @return the label of information validity
-     */
     private Label setValidityNameLabel(TextField tf)
     {
         Label validityLabel = new Label();
@@ -260,12 +231,6 @@ public class WindowDisplay extends Application
         return validityLabel;
     }
     
-    /**
-     * Check if the user input string of number format 
-     * is valid and set a validity label.
-     * @param tf the corresponding text field of the input string
-     * @return the label of information validity
-     */
     private Label setValidityNumberLabel(TextField tf)
     {
         Label validityLabel = new Label();
@@ -285,12 +250,6 @@ public class WindowDisplay extends Application
         return validityLabel;
     }
     
-    /**
-     * Check if the user input string of date format 
-     * is valid and set a validity label.
-     * @param tf the corresponding text field of the input string
-     * @return the label of information validity
-     */
     private Label setValidityDateLabel(TextField tf)
     {
         Label validityLabel = new Label();
@@ -310,9 +269,6 @@ public class WindowDisplay extends Application
         return validityLabel;
     }
     
-    /**
-     * The action event of the "submit" button.
-     */
     private void submitButtonClick(ActionEvent event)
     {
         if(canSubmit()){
@@ -323,10 +279,6 @@ public class WindowDisplay extends Application
         }
     }
     
-    /**
-     * Check if the user filled in all the valid information and be able to submit.
-     * @return if the user can submit or not
-     */
     private boolean canSubmit()
     {
         if(!validName(textFields.get(0).getText()) || !validName(textFields.get(3).getText())){
@@ -345,20 +297,18 @@ public class WindowDisplay extends Application
         
     }
     
-    /**
-     * Proceed to the statistic page.
-     */
     private void proceed()
     { 
+    	MainApp.main(null);
+    	MainApp.price_low_= fromPrice ;
+    	MainApp.price_top_ = toPrice;
+    	
        Statistics stats = new Statistics();
        Stage newStage = new Stage();
        stats.start(newStage);
        newStage.show();
     }
     
-    /**
-     * Create an alert error dialog if the price selected is invalid.
-     */
     private void priceErrorAlert()
     {
         Alert alert = new Alert(AlertType.ERROR);
@@ -369,9 +319,6 @@ public class WindowDisplay extends Application
         alert.showAndWait();
     }
     
-    /**
-     * Create an alert error dialog if the user doesn't select the price range.
-     */
     private void selectPriceAlert()
     {
         Alert alert = new Alert(AlertType.ERROR);
@@ -381,11 +328,13 @@ public class WindowDisplay extends Application
         alert.showAndWait();
     }
     
+
     /**
      * Create an alert information dialog to give a 
      * confirmation information to the user when they 
      * submit the property listing form.
      */
+
     private void confirmationInfo()
     {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -397,10 +346,6 @@ public class WindowDisplay extends Application
         alert.showAndWait();
     }
     
-    /**
-     * Create an alert error dialog if the user submit their 
-     * form with invalid information.
-     */
     private void submitErrorAlert()
     {
         Alert alert = new Alert(AlertType.ERROR);
@@ -409,5 +354,7 @@ public class WindowDisplay extends Application
         alert.setContentText("Please ensure that you have filled in all the fields\n" + 
                              "and your information is valid.");
         alert.showAndWait();
-    }
+
+    
+}
 }

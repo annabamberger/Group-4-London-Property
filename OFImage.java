@@ -1,4 +1,5 @@
 
+
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 
@@ -51,4 +52,6 @@ public class OFImage extends WritableImage
     {
         return getPixelReader().getColor(x, y);
     }
+
+
 }
