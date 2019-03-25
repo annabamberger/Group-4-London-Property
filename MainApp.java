@@ -30,12 +30,12 @@ public class MainApp {
   public static final int BOARD_HEIGHT = 2*366;
   public static final int BOARD_WIDTH = 2*500;
   
-  private static JFrame frame;
-  static List<JPanel> panel_list_ = null;
-  static int n_current_panel_ = 0;
-  public static Integer price_low_ = 0;
-  public static Integer price_top_ = 0;
-  static String clicked_borough_name_ = null;
+  private JFrame frame;
+  List<JPanel> panel_list_ = null;
+  int n_current_panel_ = 0;
+  Integer price_low_ = 0;
+  Integer price_top_ = 0;
+  String clicked_borough_name_ = null;
 
   enum BtnEvent {
     E_INVALID,
@@ -45,19 +45,20 @@ public class MainApp {
     E_DETAIL,
   };
   
-  BtnEvent btn_event_ = BtnEvent.E_MAPRANGE;
+  BtnEvent btn_event_ = BtnEvent.E_INVALID;
   
   JButton btn_backward_ = null;
   JButton btn_forward_ = null;
+  JButton btn_refresh_ = null;
   ActionListener btn_listener = new ActionListener() {
     public void actionPerformed(ActionEvent event) {
       if (event.getSource().equals(btn_forward_)) {
         btn_event_ = BtnEvent.E_FORWARD;
-      } 
-      else if (event.getSource().equals(btn_backward_)) {
+      } else if (event.getSource().equals(btn_backward_)) {
         btn_event_ = BtnEvent.E_BACKWARD;
-      } 
-      else {
+      } else if (event.getSource().equals(btn_refresh_)) {
+        btn_event_ = BtnEvent.E_MAPRANGE;
+      } else {
         btn_event_ = BtnEvent.E_DETAIL; // Nothing to do here
         JButton btn = (JButton)event.getSource();
         clicked_borough_name_ = database_.cvtNonAbbre(btn.getText());
@@ -69,14 +70,16 @@ public class MainApp {
   ChangeListener sp_listener = new ChangeListener() {
     @Override
     public void stateChanged(ChangeEvent arg0) {
-      //update_button();
+      update_button();
     }
   };
   
- 
-  static JComboBox<String> combo_box_ = null;
   
-  static PropertyDB database_ = null;
+  JSpinner sp_from_ = null;
+  JSpinner sp_to_ = null;
+  JComboBox<String> combo_box_ = null;
+  
+  PropertyDB database_ = null;
   /**
    * Launch the application.
    */
@@ -105,7 +108,7 @@ public class MainApp {
   /**
    * update the panel
    */
-  private static void refresh_panel(int current, int next) {
+  private void refresh_panel(int current, int next) {
     frame.getContentPane().remove(panel_list_.get(current));
     frame.getContentPane().repaint();
     
@@ -125,24 +128,21 @@ public class MainApp {
     switch (btn_event_) {
     case E_FORWARD:
     {
-      if (n_current_panel_ == 0)
-      {
-	      refresh_panel(n_current_panel_, n_current_panel_ + 1);
-	      n_current_panel_++;
-      }
+      refresh_panel(n_current_panel_, n_current_panel_ + 1);
+      n_current_panel_++;
       break;
     }
     case E_BACKWARD:
     {
-		if (n_current_panel_ == 1)
-		{
-	      refresh_panel(n_current_panel_, n_current_panel_ - 1);
-	      n_current_panel_--;
-        }
+      refresh_panel(n_current_panel_, n_current_panel_ - 1);
+      n_current_panel_--;
       break;
     }
     case E_MAPRANGE:
-    {      
+    {
+      price_low_ = (Integer)sp_from_.getValue();
+      price_top_ = (Integer)sp_to_.getValue();
+      
       BoroughMap panel = new BoroughMap(database_.rangeBorough((Integer val) -> {
         return (val >= price_low_ && val <= price_top_);
       }));
@@ -162,8 +162,10 @@ public class MainApp {
           database_.getAirbnbList(clicked_borough_name_, (Integer val) -> {
             return (val >= price_low_ && val <= price_top_);
           }));
-      if(panel_list_.size()>=2)
-        panel_list_.remove(1);  
+      for (int idx = n_current_panel_ + 1; idx < panel_list_.size(); ++idx) {
+        panel_list_.remove(idx);
+      }
+      
       panel_list_.add(panel);
       refresh_panel(n_current_panel_, panel_list_.size() - 1);
       n_current_panel_++;
@@ -173,27 +175,9 @@ public class MainApp {
       break;
     }
 
-    //update_button();
+    update_button();
     btn_event_ = BtnEvent.E_INVALID;
   }
-  
-  /**
-   * Update the gui
-   */
-  public static void update_gui_intf(String name) {
-	  clicked_borough_name_ = database_.cvtNonAbbre(name);
-      DetailPanel panel = new DetailPanel(clicked_borough_name_,
-          database_.getAirbnbList(clicked_borough_name_, (Integer val) -> {
-            return (val >= price_low_ && val <= price_top_);
-          }));
-      if (panel_list_.size()>1)panel_list_.remove(1);
-      panel_list_.add(panel);
-      refresh_panel(0, 1);
-      n_current_panel_++;
-
-    //update_button();
-  }
-  
   
   /**
    * Update the button
@@ -204,7 +188,10 @@ public class MainApp {
     
     btn_forward_.setEnabled(has_next);
     btn_backward_.setEnabled(has_prev);
-
+    
+    Integer from = (Integer)sp_from_.getValue();
+    Integer to   = (Integer)sp_to_.getValue();
+    btn_refresh_.setEnabled((from != price_low_) || (to != price_top_));
   }
 
   /**
@@ -226,7 +213,32 @@ public class MainApp {
     panel_list_ = new ArrayList<JPanel>();
     panel_list_.add(startup_panel);
     n_current_panel_ = 0;
-        
+    
+    sp_from_ = new JSpinner(new SpinnerNumberModel(
+        database_.get_min_price(), database_.get_min_price(),
+        database_.get_max_price(), 1));
+    sp_from_.setBounds(574, 3, 82, 22);
+    sp_from_.addChangeListener(sp_listener);
+    frame.getContentPane().add(sp_from_);
+    price_low_ = database_.get_min_price();
+    
+    sp_to_ = new JSpinner();
+    sp_to_.setModel(new SpinnerNumberModel(
+        database_.get_min_price(), database_.get_min_price(),
+        database_.get_max_price(), 1));
+    sp_to_.setBounds(702, 3, 82, 22);
+    sp_to_.addChangeListener(sp_listener);
+    frame.getContentPane().add(sp_to_);
+    price_top_ = database_.get_min_price();
+    
+    JLabel from = new JLabel("from");
+    from.setBounds(526, 6, 38, 15);
+    frame.getContentPane().add(from);
+    
+    JLabel to = new JLabel("to");
+    to.setBounds(680, 6, 12, 15);
+    frame.getContentPane().add(to);
+    
     btn_backward_ = new JButton("<--");
     btn_backward_.setBounds(10, 438, 93, 23);
     btn_backward_.addActionListener(btn_listener);
@@ -236,6 +248,11 @@ public class MainApp {
     btn_forward_.setBounds(691, 438, 93, 23);
     btn_forward_.addActionListener(btn_listener);
     frame.getContentPane().add(btn_forward_);
+    
+    btn_refresh_ = new JButton("Refresh");
+    btn_refresh_.setBounds(10, 2, 93, 23);
+    btn_refresh_.addActionListener(btn_listener);
+    frame.getContentPane().add(btn_refresh_);
        
     combo_box_ = new JComboBox<String>();
     combo_box_.setBounds(113, 3, 174, 21);
@@ -275,17 +292,21 @@ public class MainApp {
               database_.getAirbnbList(clicked_borough_name_, (Integer val) -> {
                 return (val >= price_low_ && val <= price_top_);
               }), cmp);
-          if (panel_list_.size()>1)panel_list_.remove(1);
+          
+          for (int idx = n_current_panel_ + 1; idx < panel_list_.size(); ++idx) {
+            panel_list_.remove(idx);
+          }
           
           panel_list_.add(panel);
-          refresh_panel(0, 1);
+          refresh_panel(n_current_panel_, panel_list_.size() - 1);
+          n_current_panel_++;
         }
       }
     });
     
     frame.getContentPane().add(combo_box_);
     combo_box_.setVisible(false);
-    //update_button();
+    update_button();
   }
   
   class BtnActionListener implements ActionListener {
@@ -293,16 +314,14 @@ public class MainApp {
     @Override
     public void actionPerformed(ActionEvent event) {
       if (event.getSource().equals(btn_forward_)) {
-          refresh_panel(n_current_panel_, n_current_panel_ + 1);
         n_current_panel_++;
       } else if (event.getSource().equals(btn_backward_)) {
-          refresh_panel(n_current_panel_, n_current_panel_ - 1);
         n_current_panel_--;
       } else {
         ; // Nothing to do here
       }
       
-      //update_button();
+      update_button();
     }
   }
 }
