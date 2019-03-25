@@ -69,13 +69,13 @@ public class WindowDisplay extends Application
         root = new BorderPane(welcomeLabel, topPane, null, bottomPane, null);
         
         // JavaFX must have a Scene (window content) inside a Stage (window)
-<<<<<<< HEAD
+
         Scene scene = new Scene(root, 1000,770);
         scene.getStylesheets().add("welcome.css");
-=======
-        Scene scene = new Scene(root, 1000,700);
+
+        //Scene scene = new Scene(root, 1000,700);
         //scene.getStylesheets().add("welcome.css");
->>>>>>> refs/heads/Ziling
+
         stage.setTitle("London Property Market");
         stage.setScene(scene);
 
@@ -327,15 +327,13 @@ public class WindowDisplay extends Application
         alert.showAndWait();
     }
     
-<<<<<<< master
-<<<<<<< HEAD
+
     /**
      * Create an alert information dialog to give a 
      * confirmation information to the user when they 
      * submit the property listing form.
      */
-=======
->>>>>>> bc28a1c add some comment 
+
     private void confirmationInfo()
     {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -355,9 +353,7 @@ public class WindowDisplay extends Application
         alert.setContentText("Please ensure that you have filled in all the fields\n" + 
                              "and your information is valid.");
         alert.showAndWait();
-=======
-    public static void main(String[] args) {
-        launch(args);
->>>>>>> refs/heads/Ziling
-    }
+
+    
+}
 }
