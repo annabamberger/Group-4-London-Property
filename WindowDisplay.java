@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 
 /**
- * 
+ * The Application window with welcome panel that 
+ * can switch to all other panel when clicking buttons.
  *
  * @author (Li Peiyao), Anna Bamberger
  * @version (a version number or a date)
