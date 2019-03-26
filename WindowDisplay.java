@@ -25,10 +25,31 @@ public class WindowDisplay extends Application
     private ArrayList<TextField> textFields = new ArrayList<TextField>();
     private BorderPane root;
     private Stage stage;
-    
+    private int currentPanel;
+    private boolean inquiryButtonClicked = false;
+    private boolean listButtonClicked = false;
 
     @Override
     public void start(Stage stage) 
+    {
+        root = new BorderPane();
+        setWelcomePanel();
+        // JavaFX must have a Scene (window content) inside a Stage (window)
+
+        Scene scene = new Scene(root, 1000,770);
+        scene.getStylesheets().add("welcome.css");
+
+        stage.setTitle("London Property Market");
+        stage.setScene(scene);
+
+        // Show the Stage (window)
+        stage.show();
+    }
+    
+    /**
+     * Set up the welcome panel.
+     */
+    private void setWelcomePanel()
     {
         ChoiceBox fromBox = new ChoiceBox();
         fromBox.getItems().addAll(10, 30, 50, 80, 100, 150, 200);
@@ -54,7 +75,9 @@ public class WindowDisplay extends Application
         topPane.setId("toppane");
       
         Button forwardButton = new Button(">"); 
+        forwardButton.setOnAction(this::forwardButtonClick);
         Button backwardButton = new Button("<"); 
+        backwardButton.setOnAction(this::backwardButtonClick);
         
         BorderPane bottomPane = new BorderPane();
         bottomPane.setLeft(backwardButton);
@@ -67,22 +90,12 @@ public class WindowDisplay extends Application
                                        "You can select the price range first and press 'OK' to \n" + 
                                        "find out more information about the properties in that price range.");
         welcomeLabel.setId("welcomelabel");
-        // Create a new border pane
-        root = new BorderPane(welcomeLabel, topPane, null, bottomPane, null);
         
-        // JavaFX must have a Scene (window content) inside a Stage (window)
-
-        Scene scene = new Scene(root, 1000,770);
-        scene.getStylesheets().add("welcome.css");
-
-        //Scene scene = new Scene(root, 1000,700);
-        //scene.getStylesheets().add("welcome.css");
-
-        stage.setTitle("London Property Market");
-        stage.setScene(scene);
-
-        // Show the Stage (window)
-        stage.show();
+        root.setTop(topPane);
+        root.setCenter(welcomeLabel);
+        root.setBottom(bottomPane);
+        
+        currentPanel = 0;
     }
  
     /**
@@ -107,7 +120,7 @@ public class WindowDisplay extends Application
     private void inquiryButtonClick(ActionEvent event)
     {
         setInquiryPanel();
-        
+        inquiryButtonClicked = true;
     }
     
     /**
@@ -193,19 +206,57 @@ public class WindowDisplay extends Application
         
         root.setTop(titleLabel);
         root.setCenter(formPane);
+        currentPanel = 1;
     }
     
     /**
      * The action event of clicking the "Get your property listed!" button.
-     * Create a new panel of property lease form.
      */
     private void listPropertyButtonClick(ActionEvent event)
+    {
+        setPropertyLeaseForm();
+        listButtonClicked = true;
+    }
+    
+    /**
+     * Create a new panel of property lease form.
+     */
+    private void setPropertyLeaseForm()
     {
         Label title = new Label("Property Lease Form");
         title.setId("titleLabel");
         root.setTop(title);
         Host listPanel = new Host();
         root.setCenter(listPanel.start());
+        currentPanel = 2;
+    }
+    
+    /**
+     * The action event when the '>' button is clicked.
+     */
+    private void forwardButtonClick(ActionEvent event)
+    {
+        if(currentPanel == 0 && inquiryButtonClicked == true){
+            setInquiryPanel();
+        }
+        else if(currentPanel == 1 && listButtonClicked == true){
+            setPropertyLeaseForm();
+        }
+        
+    }
+    
+    /**
+     * When the '<' button is clicked, the last panel will be reached.
+     */
+    private void backwardButtonClick(ActionEvent event)
+    {
+        if(currentPanel == 1){
+            setWelcomePanel();
+        }
+        else if(currentPanel == 2){
+            setInquiryPanel();
+        }
+        
     }
     
     /**
@@ -356,10 +407,10 @@ public class WindowDisplay extends Application
      */
     private void proceed()
     { 
-    	MainApp.main(null);
-    	MainApp.price_low_= fromPrice ;
-    	MainApp.price_top_ = toPrice;
-    	
+        MainApp.main(null);
+        MainApp.price_low_= fromPrice ;
+        MainApp.price_top_ = toPrice;
+        
        Statistics stats = new Statistics();
        Stage newStage = new Stage();
        stats.start(newStage);
