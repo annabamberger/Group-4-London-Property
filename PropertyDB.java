@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class PropertyDB {
     bnbs.removeIf(bnb -> {
       return !comp.apply(bnb.getPrice());
     });
-    
+    System.out.println(bnbs.size());
     return bnbs;
   }
   
@@ -77,6 +78,19 @@ public class PropertyDB {
     return bnb_by_borough_.getOrDefault(borough, new ArrayList<AirbnbListing>()).size();
   }
 
+  public String get_line_by_borough_name(String borough, String hostName) {
+	     List<AirbnbListing> arraylist = bnb_by_borough_.getOrDefault(borough, new ArrayList<AirbnbListing>());
+	     for(AirbnbListing tmp:arraylist){
+	            if (tmp.getHost_name().equals(hostName))
+	            {
+	            	return  "ID("+tmp.getId()+"),NAME(" + tmp.getName()+"),HOST_NAME(" + tmp.getHost_name() + "),Latitude(" +
+	            			tmp.getLatitude() +"),Longitude("+ tmp.getLongitude() + "),Price("  + tmp.getPrice() + "),MinimumNights(" + tmp.getMinimumNights()
+	            			+ "),NumberOfReviews(" + tmp.getNumberOfReviews() +")";
+	            }
+	        }
+	     return "";
+	  }
+  
   public int get_num_of_borough(String borough, Function<Integer, Boolean> comp) {
     List<AirbnbListing> bnbs = bnb_by_borough_.getOrDefault(borough, new ArrayList<AirbnbListing>());
 

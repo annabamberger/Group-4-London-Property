@@ -47,6 +47,7 @@ import javax.swing.JPanel;
 public class MainPanel extends JPanel {
   ImageIcon backgroud_;
   Image img_;
+  PropertyDB database_ = new PropertyDB();
   
   int[] px = {414,258,361,467,100,205,311,412,524,625,722,50,155,257,363,467,572,674,99,205,310,417,521,618,155,
 		  251,356,465,565,209,297,414,512};
@@ -109,5 +110,10 @@ public class MainPanel extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.drawImage(img_, 0, 0, getWidth(), getHeight(), this);
+	for (int i = 0; i < name.length; i++) {
+		String trueNameString = database_.cvtNonAbbre(name[i]);
+		int count = database_.get_num_of_borough(trueNameString,MainApp.price_low_,MainApp.price_top_);
+		g.drawString(count+"", px[i], py[i]-10);
+	}
   }
 }

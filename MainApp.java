@@ -36,6 +36,7 @@ public class MainApp {
   public static Integer price_low_ = 0;
   public static Integer price_top_ = 0;
   static String clicked_borough_name_ = null;
+  public static JPanel oldJpanel;
 
   enum BtnEvent {
     E_INVALID,
@@ -119,28 +120,32 @@ public class MainApp {
   }
   
   /**
+   * update the panel
+   */
+  private static void refresh_panel(JPanel oldJpanel, JPanel newJpanel) {
+    frame.getContentPane().remove(oldJpanel);
+    frame.getContentPane().repaint();
+    
+    newJpanel.setBounds(10, 32, 774, 396);
+    frame.getContentPane().add(newJpanel);
+    
+    frame.getContentPane().repaint();
+    frame.getContentPane().revalidate();
+    
+    combo_box_.setVisible(newJpanel instanceof DetailPanel);
+  }
+  
+  /**
    * Update the gui
    */
   private void update_gui() {
     switch (btn_event_) {
     case E_FORWARD:
-    {
-      if (n_current_panel_ == 0)
-      {
-	      refresh_panel(n_current_panel_, n_current_panel_ + 1);
-	      n_current_panel_++;
-      }
+	      refresh_panel(0, 1);
       break;
-    }
     case E_BACKWARD:
-    {
-		if (n_current_panel_ == 1)
-		{
-	      refresh_panel(n_current_panel_, n_current_panel_ - 1);
-	      n_current_panel_--;
-        }
+	      refresh_panel(1, 0);
       break;
-    }
     case E_MAPRANGE:
     {      
       BoroughMap panel = new BoroughMap(database_.rangeBorough((Integer val) -> {
@@ -181,15 +186,21 @@ public class MainApp {
    * Update the gui
    */
   public static void update_gui_intf(String name) {
+      Comparator<AirbnbListing> cmp = new Comparator<AirbnbListing>() {
+          @Override
+          public int compare(AirbnbListing o1, AirbnbListing o2) {
+            return o1.getNumberOfReviews() - o2.getNumberOfReviews();
+          }
+        };
 	  clicked_borough_name_ = database_.cvtNonAbbre(name);
       DetailPanel panel = new DetailPanel(clicked_borough_name_,
           database_.getAirbnbList(clicked_borough_name_, (Integer val) -> {
             return (val >= price_low_ && val <= price_top_);
-          }));
+          }),cmp);
       if (panel_list_.size()>1)panel_list_.remove(1);
       panel_list_.add(panel);
       refresh_panel(0, 1);
-      n_current_panel_++;
+      //n_current_panel_++;
 
     //update_button();
   }
@@ -199,11 +210,9 @@ public class MainApp {
    * Update the button
    */
   private void update_button() {
-    boolean has_next = ((n_current_panel_ + 1) < panel_list_.size());
-    boolean has_prev = (n_current_panel_ > 0);
-    
-    btn_forward_.setEnabled(has_next);
-    btn_backward_.setEnabled(has_prev);
+
+    //btn_forward_.setEnabled(has_next);
+    //btn_backward_.setEnabled(has_prev);
 
   }
 
@@ -225,7 +234,6 @@ public class MainApp {
     
     panel_list_ = new ArrayList<JPanel>();
     panel_list_.add(startup_panel);
-    n_current_panel_ = 0;
         
     btn_backward_ = new JButton("<--");
     btn_backward_.setBounds(10, 438, 93, 23);
@@ -245,7 +253,7 @@ public class MainApp {
     combo_box_.addItemListener(new ItemListener() {
       @Override
       public void itemStateChanged(ItemEvent e) {
-        if(e.getStateChange() == ItemEvent.SELECTED) {
+         if(e.getStateChange() == ItemEvent.SELECTED) {
           String item = (String) e.getItem();
           DetailPanel panel = null;
           Comparator<AirbnbListing> cmp = null;
@@ -275,10 +283,11 @@ public class MainApp {
               database_.getAirbnbList(clicked_borough_name_, (Integer val) -> {
                 return (val >= price_low_ && val <= price_top_);
               }), cmp);
-          if (panel_list_.size()>1)panel_list_.remove(1);
+          if (panel_list_.size()>1) {oldJpanel = panel_list_.get(1);panel_list_.remove(1);}
           
           panel_list_.add(panel);
-          refresh_panel(0, 1);
+          refresh_panel(oldJpanel,panel);
+          //refresh_panel(1, 1);
         }
       }
     });
@@ -293,11 +302,9 @@ public class MainApp {
     @Override
     public void actionPerformed(ActionEvent event) {
       if (event.getSource().equals(btn_forward_)) {
-          refresh_panel(n_current_panel_, n_current_panel_ + 1);
-        n_current_panel_++;
+          refresh_panel(1, 0);
       } else if (event.getSource().equals(btn_backward_)) {
-          refresh_panel(n_current_panel_, n_current_panel_ - 1);
-        n_current_panel_--;
+          refresh_panel(0, 1);
       } else {
         ; // Nothing to do here
       }

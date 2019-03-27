@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,12 +17,16 @@ import java.awt.Font;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class DetailPanel extends JPanel {
   JList<String> list_ = null;
+  String borough = "";
   /**
    * Create the panel.
    */
@@ -50,6 +55,49 @@ public class DetailPanel extends JPanel {
     }
     
     list_ = new JList<String>(listdata);
+    list_.addMouseListener(new MouseListener() {
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			if (e.getClickCount() == 2)
+			{
+				try {
+					String hostName = ((String) ((JList)(e.getSource())).getSelectedValue()).split("\\s+")[0];
+					String ret = MainApp.database_.get_line_by_borough_name(borough, hostName);
+					if (!ret.isEmpty())
+					JOptionPane.showMessageDialog(null, ret,"details", JOptionPane.NO_OPTION);
+					//System.out.println(MainApp.database_.get_line_by_borough_name(borough, hostName));
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+	});
     JScrollPane scrollBar = new JScrollPane(list_);
     add(scrollBar);
   }

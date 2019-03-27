@@ -39,12 +39,12 @@ public class AirbnbListing {
     /**
      * The price per night's stay
      */
-    private static int price;
+    private  int price;
 
     /**
      * The minimum number of nights the listed property must be booked for.
      */
-    private static int minimumNights;
+    private  int minimumNights;
     private int numberOfReviews;
 
     /**
@@ -139,11 +139,11 @@ public class AirbnbListing {
     {if(overseas()) {overseas++;}
     return overseas;
     }
-    public static int getPrice() {
+    public  int getPrice() {
         return price;
     }
     
-    public static int getMinimumNights() {
+    public  int getMinimumNights() {
         return minimumNights;
     }
     
@@ -151,7 +151,7 @@ public class AirbnbListing {
         return numberOfReviews;
     }
     //minimum cost of a booking is price multiplied by minimum nights
-    public static int minimumCost()
+    public  int minimumCost()
     {int minimumCost = getPrice()*getMinimumNights();
         return minimumCost;
     }
