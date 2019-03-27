@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * The Application window with welcome panel that 
  * can switch to all other panel when clicking buttons.
  *
- * @author (Li Peiyao), Anna Bamberger
+ * @author Li Peiyao, Anna Bamberger
  * @version (a version number or a date)
  */
 public class WindowDisplay extends Application
@@ -403,17 +403,17 @@ public class WindowDisplay extends Application
     }
     
     /**
-     * Proceed to the statistic page.
+     * Proceed to the statistic page and map page at the same time.
      */
     private void proceed()
     { 
-        MainApp.main(null);
-        MainApp.price_low_= fromPrice ;
-        MainApp.price_top_ = toPrice;
-        
-       Statistics stats = new Statistics();
+       MainApp.main(null);
+       MainApp.price_low_= fromPrice ;
+       MainApp.price_top_ = toPrice;
+         
+       StatisticsPanel statpane = new StatisticsPanel();
        Stage newStage = new Stage();
-       stats.start(newStage);
+       statpane.start(newStage);
        newStage.show();
     }
     

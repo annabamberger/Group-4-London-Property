@@ -1,0 +1,34 @@
+.root{
+    -fx-background-color:#ffc0cb;
+}
+
+#stat{
+    -fx-padding: 70px;
+}
+
+#vertical{
+    -fx-padding: 25px;
+}
+
+.button{
+   -fx-padding:90 20 90 20;
+   -fx-background-color: #4682b4;
+}
+
+#statvbox{
+    -fx-padding:20px;
+    -fx-spacing:20px;
+}
+
+.label{
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+
+#numbers{
+    -fx-padding:50px
+}
+
+.button:hover{
+    -fx-background-color: #fffafa;
+}
