@@ -25,6 +25,7 @@ public class WindowDisplay extends Application
     private ArrayList<TextField> textFields = new ArrayList<TextField>();
     private BorderPane root;
     private Stage stage;
+    private TextValidity text = new TextValidity();
     private int currentPanel;
     private boolean inquiryButtonClicked = false;
     private boolean listButtonClicked = false;
@@ -257,40 +258,7 @@ public class WindowDisplay extends Application
             setInquiryPanel();
         }
         
-    }
-    
-    /**
-     * The format of the name text field.
-     * @param input the input string from the user
-     * @return if the format is correct
-     */
-    private boolean validName(String input)
-    {
-        String format = "[A-Za-z\\s]+"; 
-        return input.matches(format);
-    }
-    
-    /**
-     * The format of the number text field.
-     * @param input the input string from the user
-     * @return if the format is correct
-     */
-    private boolean validNumber(String input)
-    {
-        String format = "[0-9\\s]+"; 
-        return input.matches(format);
-    }
-    
-    /**
-     * The format of the date text field.
-     * @param input the input string from the user
-     * @return if the format is correct
-     */
-    private boolean validDate(String input)
-    {
-        String format = "(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[1-2])/(20[1-9][0-9])"; 
-        return input.matches(format);
-    }
+    } 
     
     /**
      * Check if the user input string of name format 
@@ -302,7 +270,7 @@ public class WindowDisplay extends Application
     {
         Label validityLabel = new Label();
         tf.setOnKeyReleased(ev -> { 
-                                        if(!validName(tf.getText())){
+                                        if(!text.validName(tf.getText())){
                                             validityLabel.setText("INVALID");
                                             validityLabel.setId("invalidlabel");
                                            
@@ -327,7 +295,7 @@ public class WindowDisplay extends Application
     {
         Label validityLabel = new Label();
         tf.setOnKeyReleased(ev -> { 
-                                        if(!validNumber(tf.getText())){
+                                        if(!text.validNumber(tf.getText())){
                                             validityLabel.setText("INVALID");
                                             validityLabel.setId("invalidlabel");
                                            
@@ -352,7 +320,7 @@ public class WindowDisplay extends Application
     {
         Label validityLabel = new Label();
         tf.setOnKeyReleased(ev -> { 
-                                        if(!validDate(tf.getText())){
+                                        if(!text.validDate(tf.getText())){
                                             validityLabel.setText("INVALID");
                                             validityLabel.setId("invalidlabel");
                                            
@@ -386,13 +354,13 @@ public class WindowDisplay extends Application
      */
     private boolean canSubmit()
     {
-        if(!validName(textFields.get(0).getText()) || !validName(textFields.get(3).getText())){
+        if(!text.validName(textFields.get(0).getText()) || !text.validName(textFields.get(3).getText())){
             return false;
         }
-        if(!validNumber(textFields.get(1).getText()) || !validNumber(textFields.get(4).getText())){
+        if(!text.validNumber(textFields.get(1).getText()) || !text.validNumber(textFields.get(4).getText())){
             return false;
         }
-        if(!validDate(textFields.get(5).getText()) || !validDate(textFields.get(6).getText())){
+        if(!text.validDate(textFields.get(5).getText()) || !text.validDate(textFields.get(6).getText())){
             return false;
         }
         if(textFields.get(2).getText().isEmpty()){
