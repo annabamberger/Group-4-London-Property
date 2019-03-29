@@ -30,9 +30,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 /**
+ * Since the boroughs are quote by hexagon in the image given
+ * hexagon shaped buttons are set here
+ * basic map functionalities
  * 
- * 
- * @author Yuhan Chen 
+ * @author Yuhan Chen and Ziling Xu
  * @2019.3.1
  */
 public class Map extends Application
@@ -40,7 +42,7 @@ public class Map extends Application
     private Stage stage;     
     private Label imageLabel; 
     //private StatisticsBox statisticsBox;
-    private Statistics statistics;
+    //private Statistics statistics;
     private AirbnbListing listing;
 
     /**
@@ -70,6 +72,9 @@ public class Map extends Application
         Group enf = new Group();
         enf.getChildren().add(enfiButton);
   
+        /**
+         * set hexagon shaped buttons
+         */
         Button barnButton = new Button("BARN");
           barnButton.setPrefSize(100,100);
         Polygon barnP = new Polygon(new double[] 
@@ -472,6 +477,11 @@ public class Map extends Application
     }    
     public void buttonClick(ActionEvent event)
     {}
+    
+    /**
+     * Snapshots the specified JavaFX Image object and stores a copy of its pixels into a BufferedImage object
+     * creating a new object if needed
+     */
     public static void saveToFile(Image image)
     {File outPut = new File("C:JavaFX/");
         BufferedImage b  = SwingFXUtils.fromFXImage(image,null);

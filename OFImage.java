@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 /**
  * OFImage is a class that defines an image in OF (Objects First) format.
  * 
- * @author Michael Kölling
+ * @author Ziling Xu
  * @version 2.1
  */
 public class OFImage extends WritableImage

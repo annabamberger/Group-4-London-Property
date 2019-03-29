@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+/**
+ * a class represent porperty database
+ * 
+ * @author Ziling Xu
+ * @version 2.1
+ */
 
 public class PropertyDB {
   

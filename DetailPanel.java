@@ -23,6 +23,12 @@ import java.awt.event.MouseListener;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+/**
+ * This class is the basic panel appears once a specific borough is selected
+ * 
+ * @author Ziling Xu
+ * @version 2.1
+ */
 
 public class DetailPanel extends JPanel {
   JList<String> list_ = null;
@@ -81,6 +87,9 @@ public class DetailPanel extends JPanel {
 			
 		}
 		
+		/**
+		 * If click twice, the detail window pops out
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub

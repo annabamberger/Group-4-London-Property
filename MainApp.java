@@ -23,6 +23,13 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SpinnerModel;
 import javax.swing.JComboBox;
+/**
+ * This class creates the main frame of map, get all seperate panel together in one,
+ * and most of the functionalitiesare realized in this class
+ * 
+ * @author Ziling Xu
+ * @version 2.1
+ */
 
 public class MainApp {
 
@@ -50,6 +57,8 @@ public class MainApp {
   
   JButton btn_backward_ = null;
   JButton btn_forward_ = null;
+  
+  
   ActionListener btn_listener = new ActionListener() {
     public void actionPerformed(ActionEvent event) {
       if (event.getSource().equals(btn_forward_)) {
@@ -299,6 +308,12 @@ public class MainApp {
   
   class BtnActionListener implements ActionListener {
  
+   /**
+   * The backward and forward button on the left and right buttom coners
+   * if front page exist, backward button click, go to the previous panel
+   * vice versa
+   * if there is no front or late page exist, click has no effect
+   */
     @Override
     public void actionPerformed(ActionEvent event) {
       if (event.getSource().equals(btn_forward_)) {

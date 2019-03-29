@@ -8,6 +8,12 @@ import java.util.Map;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+/**
+ * This class is the basic panel appears as the first page/panel of map
+ * 
+ * @author Ziling Xu
+ * @version 2.1
+ */
 
 public class BoroughMap extends JPanel {
 
@@ -38,6 +44,9 @@ public class BoroughMap extends JPanel {
     }
   }
   
+  /**
+   * if the borough button clicked
+   */
   public void addListener(ActionListener listener) {
     for (JButton btn : boroughs_) {
       btn.addActionListener(listener);
